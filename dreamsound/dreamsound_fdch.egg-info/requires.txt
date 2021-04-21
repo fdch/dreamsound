@@ -1,0 +1,6 @@
+requests
+numpy
+matplotlib
+IPython
+librosa
+tensorflow

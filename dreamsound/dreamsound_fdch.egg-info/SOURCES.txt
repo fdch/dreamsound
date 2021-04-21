@@ -1,0 +1,9 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+dreamsound/dreamsound_fdch.egg-info/PKG-INFO
+dreamsound/dreamsound_fdch.egg-info/SOURCES.txt
+dreamsound/dreamsound_fdch.egg-info/dependency_links.txt
+dreamsound/dreamsound_fdch.egg-info/requires.txt
+dreamsound/dreamsound_fdch.egg-info/top_level.txt

@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: dreamsound-fdch
+Version: 0.0.1
+Summary: DreamSound Class for CNN Activation Layer Sonification
+Home-page: https://github.com/fdch/dreamsound
+Author: Fede Camara Halac
+Author-email: fch226@nyu.edu
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/fdch/dreamsound/issues
+Description: # dreamsound
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown

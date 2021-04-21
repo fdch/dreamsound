@@ -1,0 +1,7 @@
+requests
+numpy
+matplotlib
+IPython
+librosa
+tensorflow
+soundfile
