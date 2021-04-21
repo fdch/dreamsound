@@ -4,6 +4,83 @@
 #
 ###############################################################################
 
+import os
+import requests
+import pathlib
+
+class YamnetModel(object):
+
+    url  = "https://raw.githubusercontent.com/fdch/models/master/research/audioset/yamnet/"
+    weights = "https://storage.googleapis.com/audioset/yamnet.h5"
+    files = [ 
+            "export.py",
+            "features.py",
+            "inference.py",
+            "params.py",
+            "yamnet.py",
+            "yamnet_class_map.csv",
+            "yamnet_test.py",
+            "yamnet_visualization.ipynb",
+            ]
+
+    def __init__(self, path=None):
+        
+        if path is not None:
+            self.dir = path
+        else:
+            self.dir = "."
+        
+        self.path = str(pathlib.Path(self.dir).parent.absolute())
+
+        if not os.path.exists(self.path+"/dreamsound.py"):
+            print("ERROR: Please provide the path where dreamsound.py resides.")
+            return None
+        
+        self.audio   = self.path + "/audio/"
+        self.images  = self.path + "/images/"
+
+        self.__mkdir__(self.audio)
+        self.__mkdir__(self.images)
+
+    def __call__(self):
+
+        for p in self.files:
+            self.__download__(self.url + p, self.path + "/" + p)
+
+        w = self.weights.split("/")[-1]
+        self.__download__(self.weights, self.path + "/" + w)
+
+    def __download__(self, url, path):
+        if not os.path.exists(path):
+            print(f"Downloading {url} into {path} ...")
+            try:
+                r = requests.get(url, allow_redirects=True)
+                open(path, 'wb').write(r.content)
+            except Exception as e: print(e)
+
+    def __mkdir__(self, path):
+        if not os.path.exists(path):
+            print(f"Making {path} directory...")
+            os.mkdir(path)
+# end YamnetModel class
+
+# call the yamnmet model here
+if __file__ is not None:
+    yn = YamnetModel(__file__)()
+else:
+    yn = YamnetModel(".")()
+import yamnet, params
+
+# call our libraries here
+import numpy as np
+import matplotlib.pyplot as plt
+import IPython.display as ipd
+from librosa.feature import melspectrogram as librosa_mel
+from librosa.core import load as librosa_load
+import tensorflow as tf
+import soundfile as sf
+
+
 class DreamSound:
 
     sr = 22050
@@ -21,7 +98,7 @@ class DreamSound:
     
     # plotting
     plot_every = 10
-    figsize = (12,4)
+    figsize = (10,8)
     top_db = 80.0
 
     # perfom
@@ -32,13 +109,12 @@ class DreamSound:
     classid = None
     maxloss = True
     elapsed_steps = 0
-    enable = 0 # prevent loading recursively on first run
-    
+    # prevent loading recursively on first run
+    enable_recursion = False  
+
     # filter
     w_tgt = None
     power = 1.0
-
-    yamnet_classes='yamnet_class_map.csv'
 
     def __init__(self, paths=None, layer=None):
 
@@ -51,13 +127,13 @@ class DreamSound:
     
     def load_model(self, layer):
         # load its class names
-        self.class_names = yamnet.class_names(self.yamnet_classes)    
+        self.class_names = yamnet.class_names(__yamnet__["classes"])
         # load model parameters and get model
-        self.params = params.Params(sample_rate=self.sr, 
-                                           patch_hop_seconds=self.patch_hop)
+        self.params = params.Params(sample_rate=self.sr,
+            patch_hop_seconds=self.patch_hop)
         self.model = yamnet.yamnet_frames_model(self.params)
         # load model weigths
-        self.model.load_weights('yamnet.h5')
+        self.model.load_weights(__yamnet__["weights"])
         if layer is not None:
             self.layername = layer
         else:
@@ -120,11 +196,11 @@ class DreamSound:
             x_real /= tf.math.reduce_max(tf.math.abs(x_real))
             x_imag /= tf.math.reduce_max(tf.math.abs(x_imag))
         
-        conv = tf.dtypes.complex(self.add_min_length(x_real,y,tf.math.multiply),
-                                 self.add_min_length(x_imag,y,tf.math.multiply))
+        conv = tf.dtypes.complex(self.clip_func(x_real,y,tf.math.multiply),
+                                 self.clip_func(x_imag,y,tf.math.multiply))
         return conv
     
-    def add_min_length(self, x, y, fun):
+    def clip_func(self, x, y, fun):
         if x.shape[0] < y.shape[0] : y = y[:x.shape[0]]
         if y.shape[0] < x.shape[0] : x = x[:y.shape[0]]
         return fun(x,y)
@@ -150,7 +226,7 @@ class DreamSound:
         Yfilt = self.complex_mul(Y, Hfilt, norm=True)
     
         # combine complex values and take inverse fourier
-        combined = istft(self.add_min_length(X,Yfilt,tf.math.add))
+        combined = istft(self.clip_func(X,Yfilt,tf.math.add))
 
         return combined    
     
@@ -164,26 +240,27 @@ class DreamSound:
         if target is not None:
             F = self.stft(target)
             Fabs = tf.math.abs(F) ** self.power
-            filter = Fabs
+            y_filter = Fabs
         else:
             Y = self.stft(y)
             Yabs = tf.math.abs(Y) ** self.power
-            filter = Yabs
+            y_filter = Yabs
 
-        norm_filter = filter / tf.math.reduce_max(filter)
-        filter_thresh = norm_filter - self.threshold
+        norm_y_filter = y_filter / tf.math.reduce_max(y_filter)
+        y_filter_thresh = norm_y_filter - self.threshold
 
-        filter *= (tf.math.sign(filter_thresh) + 1) * 0.5
-        filter *= self.step_size
+        y_filter *= (tf.math.sign(y_filter_thresh) + 1) * 0.5
+        y_filter *= self.step_size
 
-        # multiply the magnitude with the complex pair
-        X_filtered = self.complex_mul(X, filter, norm=True)
+        X_y_filtered = self.complex_mul(X, y_filter, norm=True)
 
-        x_real = self.istft(X_filtered)
-        combined = self.add_min_length(x_real, y, tf.math.add)
-
-        # muy acoplado al audio utilizado    
-        return combined, x_real, filter
+        x_real = self.istft(X_y_filtered)
+        combined = self.clip_func(x_real, y, tf.math.add)
+        y_filter_real = self.istft(
+                tf.dtypes.complex(y_filter,
+                    tf.zeros(y_filter.shape)))
+ 
+        return combined, x_real, y_filter_real
 
     def calc_loss(self, data):
 
@@ -258,41 +335,72 @@ class DreamSound:
             if (i+1) % self.plot_every == 0 and i > 0:
                 
                 # store data in self arrays                
-                self.difference = self.add_min_length(wt,source,tf.math.subtract).numpy()
+                self.difference = self.clip_func(wt,source,tf.math.subtract).numpy()
                 self.gradients = gradients.numpy()
                 self.wavetensor = wt.numpy()
                 
                 # plot
-                label = f"Step {self.elapsed_steps} - class: {c}"
-                self.plot_and_listen(self.wavetensor,label=label)
-                self.plot_and_listen(self.difference,label="Difference")
+                plots = []
+                fig_title = f"{c}-{self.elapsed_steps}"
+                plots.append(self.wavetensor)
+                plots.append("orig")
+                plots.append(self.difference)
+                plots.append("diff")
                 if wr_ is not None:
                     self.inverse = tf.transpose(wr_).numpy()
-                    self.plot_and_listen(self.inverse,label="Filtered")
+                    plots.append(self.inverse)
+                    plots.append("filt")
                 if wf_ is not None:
                     self.filter = tf.transpose(wf_).numpy()
-                    self.plot_and_listen(self.filter,label="Hard Filter", play=False, wave=False)         
+                    plots.append(self.filter)
+                    plots.append("hard")
+                plots.append(self.gradients)
+                plots.append("grad")
+
+                self.plotter(plots, file=fig_title)
+
             # end main loop
             self.elapsed_steps += 1 # increment count
 
         return wt
 
-    def plot_and_listen(self, s=None, label='', wave=True, spec=True, play=True):
+    def plotter(self, plots, file):
+
+        num_plots = len(plots)//2
+
+        fig = plt.figure(figsize=self.figsize)
+
+        for i in range(num_plots):
+            plt.subplot(num_plots//2, 3, i+1)
+            plot = plots[i * 2]
+            label = plots[i * 2 + 1]
+            self.plot_and_listen(s=plot, label=file+"-"+label, play=False)
+
+        plt.savefig(images_dir + file+".png")
+        plt.close()
+
+
+
+    def plot_and_listen(self,s=None,label='',wave=True, spec=True, play=True):
         
         if s is None:
             s = self.audio[0]
 
         if wave:
-            self.plot(s,image=False, label=f"{label} - waveform")
+            self.plot(s,image=False, label=label)
             
         if spec:
             ss = librosa_mel(s)
             ss = np.log10(np.maximum(1e-05,ss))*10.0
             ss = np.maximum(ss, ss.max()-self.top_db)
-            self.plot(ss, image=True, label=f"{label} - Mel Spectrogram")
+            self.plot(ss, image=True, label=label)
+        
+        fname = audio_dir + label.replace(" ","_") + ".wav"
+        print(f"Writing {fname}...")
+        sf.write(fname, s, self.sr, subtype="PCM_24")
         
         if play:
-            display(ipd.Audio(s,rate=self.sr))
+            os.system(f"ffplay {fname}")
     
 
     def play(self):
@@ -300,40 +408,40 @@ class DreamSound:
         self.plot_and_listen()
     
     def plot(self, data, image=True, label=None):
-        fig = plt.figure(figsize=self.figsize)
+
         if image:
             plt.imshow(data, origin="lower", aspect="auto")
         else:
             plt.plot(data)
         if label is not None:
             plt.title(label)
-        plt.show()
-        plt.close()
 
     def print(self):
         print(vars(self))
 
     def __call__(self, audio_index=None, target=None):
+
+        # first time, no index given
+        if audio_index is None and not self.enable_recursion:
+            w = self.audio[0] 
         
-        if audio_index is None and self.enable:
-            w = self.x # recurse
-        elif audio_index >= 0 and audio_index <= len(self.audio):
-            w = self.audio[audio_index]
-        elif audio_index > len(self.audio)-1 or audio_index == -1:
-            w = self.audio[-1]
-        elif audio_index < 0:
-            w = self.audio[0]
+        # recurse, no index given
+        elif audio_index is None and self.enable_recursion:
+            w = self.x 
+        
+        # do not recurse, specific index given
         else:
-            print("Implement multiple audio dreaming...")
-            return None
-    
-        if audio_index is not None:
+            # reset elapsed
             self.elapsed_steps = 0
+            w = self.audio[audio_index]
         
+        # was a target provided?
         if target is not None:
             self.w_tgt = self.audio[target]
 
         self.x = self.dream_big(w, target=self.w_tgt)
-        self.enable = 1
+
+        # enable recursion after first run
+        self.enable_recursion = True
 
 # end DreamSound class

@@ -1,0 +1,12 @@
+.DS_Store
+yamnet.h5
+yamnet.py
+yamnet_class_map.csv
+yamnet_test.py
+yamnet_visualization.ipynb
+params.py
+features.py
+inference.py
+export.py
+__pycache__/
+*.egg-info
