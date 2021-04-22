@@ -1,6 +1,6 @@
 .DS_Store
 __pycache__/
 *.egg-info
-publish
+publish*
 tests/*
 .tox/*
