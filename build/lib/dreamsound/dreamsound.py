@@ -148,6 +148,7 @@ class DreamSound(object):
     elapsed     = 0
     recurse     = False
     target      = None
+    tgt_class   = None
     power       = 1.0
     audio_dir   = "./audio/"
     image_dir   = "./image/"
@@ -162,7 +163,7 @@ class DreamSound(object):
         self.load_model(layer)
 
         self.__mkdir__(self.audio_dir)
-        self.__mkdir__(self.images_dir)
+        self.__mkdir__(self.image_dir)
 
     def __mkdir__(self, path):
         if not os.path.exists(path):
@@ -331,7 +332,8 @@ class DreamSound(object):
         if target is not None:
             wt_tgt = tf.convert_to_tensor(target)
             _, self.classid = self.class_from_audio(wt_tgt)
-            tf.print(f"Target class: { self.class_names[self.classid] }...")
+            self.tgt_class = self.class_names[self.classid]
+            tf.print(f"Target class: { self.tgt_class }...")
         else:
             wt_tgt = None
 
@@ -438,7 +440,12 @@ class DreamSound(object):
             ss = np.maximum(ss, ss.max()-self.top_db)
             self.plot(ss, image=True, label=label)
         
-        fname = self.audio_dir + label.replace(" ","_") + ".wav"
+        label = label.replace(" ","_")
+
+        if self.target is not None:
+            label = label + "-tgt-" + self.tgt_class.replace(" ","_")
+        
+        fname = self.audio_dir + label + ".wav"
         print(f"Writing {fname}...")
         sf.write(fname, s, self.sr, subtype="PCM_24")
         
@@ -479,7 +486,7 @@ class DreamSound(object):
             w = self.audio[audio_index]
         
         # was a target provided?
-        if target is not None:
+        if tgt is not None:
             self.target = self.audio[tgt]
 
         self.x = self.dream(w, target=self.target)
