@@ -66,7 +66,7 @@ curl -O https://storage.googleapis.com/audioset/yamnet.h5
 ## Usage example
 You must have the yamnet model on the same directory. Now, you can import the dreamsound module and use the class. This code loads some files from disk and passes them to the `DreamSound` class from the `dreamsound` module. This looks something like this:
 
-```python
+```
 >>> import dreamsound
 INFO:tensorflow:Enabling eager execution
 INFO:tensorflow:Enabling v2 tensorshape
@@ -87,7 +87,7 @@ There are two types of filtering, auto or targetted:
 ### Auto Filtering:
 Filter the first audio with it's dreamed self
 
-```python
+```
 >>> ds(audio_index=0)
 Running step 0, class: Whistling...
 ...
@@ -100,7 +100,7 @@ Writing ./audio/Whistle-9-grad.wav...
 
 ### Targetted Filtering:
 Filter the first with a dreamed target
-```python
+```
 >>> ds(audio_index=0, tgt=1)
 Target class: Animal...
 Running step 0, class: Whistling...
@@ -122,7 +122,7 @@ Writing ./audio/Whistle-9-grad-tgt-Animal.wav...
 
 ## Recurse
 Finally, you can pass no arguments to continue filtering recursively
-```python
+```
 >>> ds()
 Target class: Animal...
 Running step 10, class: Whistle...
