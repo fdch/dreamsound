@@ -2,8 +2,31 @@
 
 Repository for the dreamsound python package.
 
+## Description
+
+Inspired by the [DeepDream](https://www.tensorflow.org/tutorials/generative/deepdream) project, DreamSound plays a sound file to 
+[Yamnet](https://github.com/tensorflow/models/tree/master/research/audioset/yamnet), a pre-trained neural network, and Yamnet returns a dreamed sound. 
+
+Internally, DreamSound takes the gradients of a class from the pre-trained yamnet model and filters them with an original sound with some combination technique.
+
 ## Install
-Install using pip
+Dreamsound depends on the following pip packages you can `pip install`:
+```
+requests
+numpy
+matplotlib
+IPython
+librosa
+tensorflow
+soundfile
+```
+
+First, install the dependencies
+```sh
+python3 -m pip install -r requirements.txt
+```
+
+Install the dreamsound package using pip:
 
 ```sh
 python3 -m pip install dreamsound

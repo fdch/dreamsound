@@ -41,11 +41,12 @@ class DreamSound(object):
 
     Call
     -----------
-    When called, the class computes `step_size` times
+    When called, the class computes `steps` times
     the `dream()` function, which takes the gradients of a class
     from the pre-trained yamnet model and filters them with an
     original sound with some combination technique defined
-    in the `output_type` variable.
+    in the `output_type` variable. Note that files will be
+    written to disc at a rate of `plot_every` steps.
 
     Class Variables
     -----------
@@ -171,6 +172,9 @@ class DreamSound(object):
             os.mkdir(path)
 
     def load_model(self, layer):
+        """loads the yamnet model with specified layer as string
+        """
+
         # load its class names
         self.class_names = yamnet.class_names("yamnet_class_map.csv")
         # load model parameters and get model
@@ -194,6 +198,9 @@ class DreamSound(object):
         print("Dreamer started.")
 
     def load_audio(self, paths):
+        """loads the array of sound files using librosa
+        """
+        
         print("Loading audio files...")
         for p in paths:
             y,_ = librosa_load(p, sr=self.sr, duration=self.max_dur)

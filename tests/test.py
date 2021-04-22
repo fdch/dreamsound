@@ -1,10 +1,10 @@
-import dreamsound as d
-
-def test():
+import dreamsound
     
-    ds = d.dreamsound.DreamSound(["../audio/original.wav"])
-    ds.plot_every = 40
-    ds.steps = 40
-    ds()
+ds = dreamsound.DreamSound(["../audio/original.wav", "../audio/cat.wav"])
 
-test()
+ds.plot_every = 100
+ds.steps = 10
+
+ds(audio_index=0, tgt=1)
+
+assert ds.elapsed == 10
