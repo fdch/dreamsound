@@ -36,6 +36,8 @@ Install the dreamsound package using pip:
 python3 -m pip install dreamsound
 ```
 
+The pip project is hosted at PyPi: https://pypi.org/project/dreamsound/
+
 **NOTE: you need to download the yamnet model before importing the dreamsound module. Please, continue reading.**
 
 
