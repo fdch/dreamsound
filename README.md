@@ -11,7 +11,7 @@ Internally, DreamSound takes the gradients of a class from the pre-trained yamne
 
 ## Example
 
-Head to [this Google Colab](https://colab.research.google.com/github/fdch/dreamsound/blob/main/DreamSound_Package_Example.ipynb) for a quick example on how to get started with the module.
+Head to [this Google Colab](https://colab.research.google.com/github/fdch/dreamsound/blob/main/DreamSound_Package_Example.ipynb) for a quick example on how to get started with the module. An old version can be accessible [in this  other Google Colab](https://colab.research.google.com/github/fdch/dreamsound/blob/main/DreamSound_v_1_5.ipynb). Yet an older version is [here](https://colab.research.google.com/github/fdch/dreamsound/blob/main/DreamSound_v_1.ipynb), which goes hand in hand with an [early paper](https://github.com/fdch/dreamsound/blob/main/docs/papers/DreamSound__CNN_Activation_Layer_Sonification.pdf) we did on the matter of Convolutional Neural Network Activation Layer Sonification, or what we called DreamSound.
 
 ## Install
 Dreamsound depends on the following pip packages you can `pip install`:
