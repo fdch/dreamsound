@@ -19,10 +19,17 @@ ds()
 
 assert ds.elapsed == 8
 
-for i in range(6):
-    print(i)
+for i in range(7):
+    print(i, 'auto')
     ds.steps = 2
     ds.output_type = i
     ds(audio_index=1)
     assert ds.elapsed == 2
 
+
+for i in [3, 4]:
+    print(i, 'targetted')
+    ds.steps = 2
+    ds.output_type = i
+    ds(audio_index=0, target=1)
+    assert ds.elapsed == 2

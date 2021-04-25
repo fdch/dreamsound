@@ -15,6 +15,7 @@ try:
 except ModuleNotFoundError: 
     from .downloader import YamnetDownloader
     yn = YamnetDownloader()()
+    import yamnet, params
 import numpy as np
 import tensorflow as tf
 import soundfile as sf
@@ -184,7 +185,7 @@ class DreamSound(object):
             if not exists(self.audio_dir): mkdir(self.audio_dir)
             if not exists(self.image_dir): mkdir(self.audio_dir)
 
-    def __call__(self, audio_index=None, tgt=None):
+    def __call__(self, audio_index=None, target=None):
 
         # first time, no index given
         if audio_index is None and not self.recurse:
@@ -201,8 +202,8 @@ class DreamSound(object):
             w = self.audio[audio_index]
         
         # was a target provided?
-        if tgt is not None:
-            self.target = self.audio[tgt]
+        if target is not None:
+            self.target = self.audio[target]
 
         self.x = self.dream(w, target=self.target)
 
