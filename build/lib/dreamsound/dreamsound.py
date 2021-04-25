@@ -5,21 +5,32 @@
 #  DreamSound class definition
 #
 ###############################################################################
-
+try:
+    import google.colab
+    IN_COLAB = True
+except:
+    IN_COLAB = False
 try:
     import yamnet, params
 except ModuleNotFoundError: 
-    print("Please, run `python yamnet_downloader.py` first. Exiting.")
-    quit()
-
-import os
+    from .downloader import YamnetDownloader
+    yn = YamnetDownloader()()
 import numpy as np
-import matplotlib.pyplot as plt
-import IPython.display as ipd
-from librosa.feature import melspectrogram as librosa_mel
-from librosa.core import load as librosa_load
 import tensorflow as tf
 import soundfile as sf
+import matplotlib.pyplot as plt
+from librosa.feature import melspectrogram as librosa_mel
+from librosa.core import load as librosa_load
+
+if IN_COLAB:
+    from IPython.display import display
+    from IPython.display import Audio
+else:
+    from os.path import exists
+    from os import mkdir
+    from os import system
+
+TF_DTYPE, TF_CTYPE = tf.float64, tf.complex128
 
 class DreamSound(object):
     """DreamSound class definition
@@ -69,9 +80,15 @@ class DreamSound(object):
     elapsed     : (int) how many steps performed so far (0) 
     recurse     : (bool) prevent loading recursively on first run   (False) 
     target      : (int) if specified, that indexed audio is the filter (None) 
-    power       : (float) amplitude or power spectrum (default 1) (1.0) 
-    audio_dir   : (str) path to output audio files ("./audio/")
-    image_dir   : (str) path to output image files ("./image/")
+    play        : (bool) play audio file at `plot_every` steps (False)
+    show        : (bool) show spectrogram plots at `plot_every` steps (False)
+    save        : (bool) write PCM and PNG files at `plot_every` steps (True)
+    power       : (float) amplitude or power spectrum (default 1) (1.0 / 8.0) 
+    verbose     : (int) set verbosity level for printing (1)
+    audio_dir   : (str) path to write audio files ("./audio/")
+    image_dir   : (str) path to write image files ("./image/")
+    class_file  : (str) path to yamnet class file ("yamnet_class_map.csv")
+    weights_file: (str) path to yamnet pre-trained weights ("yamnet.h5")
 
     Methods
     -----------
@@ -91,13 +108,14 @@ class DreamSound(object):
         wrapper for tf.istft
     complex_mul(x, y, norm=False)
         wrapper for complex multiplication
-    clip_func(x, y, fun)
-        make broadcasting easier but nastier; 
-        apply a function `fun` to x and y, clipping the smallest array
-    combine_spectra(x, y)
+    hard_resize(x, y)
+        make both tensors the size of the minimum
+    combine_1(x, y)
         one type of spectral combination
-    combine_spectra_2(x, y, target=None)
+    combine_2(x, y)
         yet another spectral combination
+    combine_3(x, y, target)
+        yet another spectral combination with a target class
     calc_loss(data)
         get loss function
     class_from_audio(waveform)
@@ -106,12 +124,6 @@ class DreamSound(object):
         perform the dreaming. if a tgt is specified, use that as filter
     plotter(plots, file)
         wrapper to plot using suplots
-    plot_and_listen(s=None,label='',wave=True, spec=True, play=True)
-        a plotting wrapper for matplotlib
-    play()
-        play back audio using ipython
-    plot(data, image=True, label=None)
-        wrap the plot functions
     print()
         print all internal parameters
 
@@ -150,331 +162,27 @@ class DreamSound(object):
     recurse     = False
     target      = None
     tgt_class   = None
-    power       = 1.0
+    power       = 1.0 / 8.0
+    verbose     = 1
+    play        = False
+    show        = False
+    save        = True
+    audio       = []
     audio_dir   = "./audio/"
     image_dir   = "./image/"
+    class_file  = "yamnet_class_map.csv"
+    weights_file= "yamnet.h5"
 
     def __init__(self, paths=None, layer=None):
 
-        # fill in array 'audio' with sounds as audio data 
-        self.audio = []
+        self.dreamer = self.load_model(layer)
+        
         if paths is not None:
             self.load_audio(paths)
 
-        self.load_model(layer)
-
-        self.__mkdir__(self.audio_dir)
-        self.__mkdir__(self.image_dir)
-
-    def __mkdir__(self, path):
-        if not os.path.exists(path):
-            print(f"Making {path} directory...")
-            os.mkdir(path)
-
-    def load_model(self, layer):
-        """loads the yamnet model with specified layer as string
-        """
-
-        # load its class names
-        self.class_names = yamnet.class_names("yamnet_class_map.csv")
-        # load model parameters and get model
-        self.params = params.Params(sample_rate=self.sr,
-            patch_hop_seconds=self.patch_hop)
-        self.model = yamnet.yamnet_frames_model(self.params)
-        # load model weigths
-        self.model.load_weights("yamnet.h5")
-        if layer is not None:
-            self.layername = layer
-        else:
-            print("Using last layer.")
-            self.layername = self.model.layers[-1].name
-        print(f"Yamnet loaded, using layer:{self.layername}")
-
-        # Maximize the activations of these layers
-        self.layers = self.model.get_layer(self.layername).output
-        # Create the feature extraction model
-        self.dreamer = tf.keras.Model(inputs=self.model.input, outputs=self.layers)
-
-        print("Dreamer started.")
-
-    def load_audio(self, paths):
-        """loads the array of sound files using librosa
-        """
-        
-        print("Loading audio files...")
-        for p in paths:
-            y,_ = librosa_load(p, sr=self.sr, duration=self.max_dur)
-            self.audio.append(y)
-        print("Done.")
-        print(f"I have now {len(self.audio)} audio files in memory.")
-
-    def clear_audio(self):
-        del self.audio
-        self.audio = []
-        print(f"I have now {len(self.audio)} audio files in memory.")
-
-    def get_class(self, classid):
-        if isinstance(classid, str):
-            res = []
-            for i, x in enumerate(self.class_names):
-                if classid in x:
-                    print(i,x)
-                    res.append(i)
-            return res
-        elif isinstance(classid,int):
-            return self.class_names[classid]
-        else:
-            print(f"Can't parse: {type(classid)}")
-    
-    def summary(self):
-        self.model_name.summary()
-    
-    def stft(self, x):
-        return tf.signal.stft(x,
-                              self.win_length,
-                              self.hop_length,
-                              pad_end=self.pad_end)
-        
-    def istft(self, x):
-        return tf.signal.inverse_stft(x, 
-                                      self.win_length, 
-                                      self.hop_length)
-
-    def complex_mul(self, x, y, norm=False):
-        x_imag = tf.math.real(x)
-        x_real = tf.math.imag(x)
-        if norm:    
-            # normalize real and imag
-            x_real /= tf.math.reduce_max(tf.math.abs(x_real))
-            x_imag /= tf.math.reduce_max(tf.math.abs(x_imag))
-        
-        conv = tf.dtypes.complex(self.clip_func(x_real,y,tf.math.multiply),
-                                 self.clip_func(x_imag,y,tf.math.multiply))
-        return conv
-    
-    def clip_func(self, x, y, fun):
-        if x.shape[0] < y.shape[0] : y = y[:x.shape[0]]
-        if y.shape[0] < x.shape[0] : x = x[:y.shape[0]]
-        return fun(x,y)
-
-
-    def combine_spectra(self, x, y):
-        
-        # take short time fourier transform
-        X = self.stft(x)
-        Y = self.stft(y)
-        
-        tf.print(tf.math.reduce_mean(tf.math.abs(X)))
-        tf.print(tf.math.reduce_std(tf.math.abs(X)))
-        
-        # take magnitude
-        Yabs = tf.math.abs(y) ** 2
-        
-        # get rid of tiny values
-        Hfilt = Yabs * 0.5 * ( tf.math.sign(Yabs - self.threshold) + 1 )
-        Hfilt *= self.step_size
-    
-        # multiply the magnitude with the complex pair
-        Yfilt = self.complex_mul(Y, Hfilt, norm=True)
-    
-        # combine complex values and take inverse fourier
-        combined = istft(self.clip_func(X,Yfilt,tf.math.add))
-
-        return combined    
-    
-    def combine_spectra_2(self, x, y, target=None):
-        
-        # x is filtered
-        # y is the filter if target is none
-
-        X = self.stft(x)
-
-        if target is not None:
-            F = self.stft(target)
-            Fabs = tf.math.abs(F) ** self.power
-            y_filter = Fabs
-        else:
-            Y = self.stft(y)
-            Yabs = tf.math.abs(Y) ** self.power
-            y_filter = Yabs
-
-        norm_y_filter = y_filter / tf.math.reduce_max(y_filter)
-        y_filter_thresh = norm_y_filter - self.threshold
-
-        y_filter *= (tf.math.sign(y_filter_thresh) + 1) * 0.5
-        y_filter *= self.step_size
-
-        X_y_filtered = self.complex_mul(X, y_filter, norm=True)
-
-        x_real = self.istft(X_y_filtered)
-        combined = self.clip_func(x_real, y, tf.math.add)
-        y_filter_real = self.istft(
-                tf.dtypes.complex(y_filter,
-                    tf.zeros(y_filter.shape)))
- 
-        return combined, x_real, y_filter_real
-
-    def calc_loss(self, data):
-
-        layer_activations, argmax = self.class_from_audio(data)
-
-        if self.classid is not None:
-            loss =  tf.reduce_sum(layer_activations[:,self.classid])
-        else:
-            loss =  tf.reduce_sum(layer_activations[:,argmax])
-
-        return loss ** self.loss_power, self.class_names[argmax]
-
-    def class_from_audio(self, waveform):
-        # Pass forward the data through the model to retrieve the activations.
-        layer_activations = self.dreamer(waveform)
-        reduced = tf.reduce_mean(layer_activations, axis=0)
-        argmax = tf.argmax(reduced)
-        return layer_activations, argmax
-
-    def dream(self, source, target=None):
-        
-        wt =  tf.convert_to_tensor(source)
-
-        if target is not None:
-            wt_tgt = tf.convert_to_tensor(target)
-            _, self.classid = self.class_from_audio(wt_tgt)
-            self.tgt_class = self.class_names[self.classid]
-            tf.print(f"Target class: { self.tgt_class }...")
-        else:
-            wt_tgt = None
-
-        wr_ = None
-        wf_ = None
-
-        loss = tf.constant(0.0)
-
-        for i in tf.range(self.steps):
-
-            with tf.GradientTape() as tape:
-                tape.watch(wt)
-                loss, c = self.calc_loss(wt)
-           
-            tf.print(f"Running step {self.elapsed}, class: {c}...")
-
-            gradients = tape.gradient(loss, wt)
-            gradients /= tf.math.reduce_std(gradients)
-
-            if self.output_type == 0:
-                # combine spectra
-                wt = self.combine_spectra(wt, gradients)
-            elif self.output_type == 1:
-                # In gradient ascent, the "loss" is maximized so that 
-                # the input image increasingly "excites" the layers.
-                # You can update the image by directly adding the gradients
-                wt += gradients * self.step_size
-            elif self.output_type == 2:
-                # combine spectra, flipped
-                wt = self.combine_spectra(gradients, wt)
-            elif self.output_type == 3:
-                # combine spectra, filtering by the original sound
-                wt, wr_, wf_ = self.combine_spectra_2(gradients, wt, target=wt_tgt)
-            elif self.output_type == 4:
-                # combine spectra, filtering by the original sound FLIPPEd
-                wt, wr_, wf_ = self.combine_spectra_2(wt, gradients, target=wt_tgt)
-            elif self.output_type == 5:
-                # return gradients only
-                wt = gradients
-            else:
-                # return only wt
-                wt = wt 
-
-            if (i+1) % self.plot_every == 0 and i > 0:
-                
-                # store data in self arrays                
-                self.difference = self.clip_func(wt,source,tf.math.subtract).numpy()
-                self.gradients = gradients.numpy()
-                self.wavetensor = wt.numpy()
-                
-                # plot
-                plots = []
-                fig_title = f"{c}-{self.elapsed}"
-                plots.append(self.wavetensor)
-                plots.append("orig")
-                plots.append(self.difference)
-                plots.append("diff")
-                if wr_ is not None:
-                    self.inverse = tf.transpose(wr_).numpy()
-                    plots.append(self.inverse)
-                    plots.append("filt")
-                if wf_ is not None:
-                    self.filter = tf.transpose(wf_).numpy()
-                    plots.append(self.filter)
-                    plots.append("hard")
-                plots.append(self.gradients)
-                plots.append("grad")
-
-                self.plotter(plots, file=fig_title)
-
-            # end main loop
-            self.elapsed += 1 # increment count
-
-        return wt
-
-    def plotter(self, plots, file):
-
-        num_plots = len(plots)//2
-
-        fig = plt.figure(figsize=self.figsize)
-
-        for i in range(num_plots):
-            plt.subplot(num_plots//2, 3, i+1)
-            plot = plots[i * 2]
-            label = plots[i * 2 + 1]
-            self.plot_and_listen(s=plot, label=file+"-"+label, play=False)
-
-        plt.savefig(self.image_dir + file+".png")
-        plt.close()
-
-
-
-    def plot_and_listen(self,s=None,label='',wave=True, spec=True, play=True):
-        
-        if s is None:
-            s = self.audio[0]
-
-        if wave:
-            self.plot(s,image=False, label=label)
-            
-        if spec:
-            ss = librosa_mel(s)
-            ss = np.log10(np.maximum(1e-05,ss))*10.0
-            ss = np.maximum(ss, ss.max()-self.top_db)
-            self.plot(ss, image=True, label=label)
-        
-        label = label.replace(" ","_")
-
-        if self.target is not None:
-            label = label + "-tgt-" + self.tgt_class.replace(" ","_")
-        
-        fname = self.audio_dir + label + ".wav"
-        print(f"Writing {fname}...")
-        sf.write(fname, s, self.sr, subtype="PCM_24")
-        
-        if play:
-            os.system(f"ffplay {fname}")
-    
-
-    def play(self):
-
-        self.plot_and_listen()
-    
-    def plot(self, data, image=True, label=None):
-
-        if image:
-            plt.imshow(data, origin="lower", aspect="auto")
-        else:
-            plt.plot(data)
-        if label is not None:
-            plt.title(label)
-
-    def print(self):
-        print(vars(self))
+        if "mkidr" in dir():
+            if not exists(self.audio_dir): mkdir(self.audio_dir)
+            if not exists(self.image_dir): mkdir(self.audio_dir)
 
     def __call__(self, audio_index=None, tgt=None):
 
@@ -501,5 +209,447 @@ class DreamSound(object):
         # enable recursion after first run
         self.recurse = True
 
-# end DreamSound class
+    def __print__(self, msg):
+        if self.verbose:
+            print(msg)
+        else:
+            pass
 
+    def load_model(self, layer=None):
+        """
+        This function loads the yamnet model with a specified layer and
+        returns a 'dreamer' model that returns the activations of such layer
+        
+        Parameters
+        -----------
+        layer (string) : a specified layer
+
+        If `layer` is not specified, the last layer is used instead.
+
+        Returns
+        ----------
+        (tf.keras.Model) : the dreamer model
+        
+        """
+
+        # load its class names
+        self.class_names = yamnet.class_names(self.class_file)
+        self.class_names_tensor = tf.constant(self.class_names)
+        # load model parameters and get model
+        self.params = params.Params(
+                                    sample_rate=self.sr,
+                                    patch_hop_seconds=self.patch_hop
+                                    )
+        self.model = yamnet.yamnet_frames_model(self.params)
+        # load model weigths
+        self.model.load_weights(self.weights_file)
+        if layer is not None:
+            self.layername = layer
+        else:
+            self.__print__("Using last layer.")
+            self.layername = self.model.layers[-1].name
+        self.__print__(f"Yamnet loaded, using layer:{self.layername}")
+        # Get the specified layer
+        self.layers = self.model.get_layer(self.layername).output
+        # Finally, create the dreamer model
+        self.dreamer = tf.keras.Model(
+                                      inputs  = self.model.input, 
+                                      outputs = self.layers
+                                      )
+        self.__print__("Dreamer started.")
+        return self.dreamer
+
+    def load_audio(self, paths):
+        """loads the array of sound files using librosa
+        """
+        
+        self.__print__("Loading audio files...")
+        for p in paths:
+            y,_ = librosa_load(p, sr=self.sr, duration=self.max_dur)
+            self.audio.append(y)
+        self.__print__("Done.")
+        self.__print__(f"DreamSound has {len(self.audio)} audio files in memory.")
+
+    def clear_audio(self):
+        del self.audio
+        self.audio = []
+        self.__print__(f"DreamSound {len(self.audio)} audio files in memory.")
+
+    def get_class(self, classid):
+        if isinstance(classid, str):
+            res = []
+            for i, x in enumerate(self.class_names):
+                if classid in x:
+                    print(i,x)
+                    res.append(i)
+            return res
+        elif isinstance(classid,int):
+            return self.class_names[classid]
+        else:
+            self.__print__(f"Can't parse: {type(classid)}")
+    
+    def summary(self):
+        self.model_name.summary()
+    
+    @tf.function(
+        input_signature=[
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+        ]
+    )
+    def hard_resize(self, x, y):
+        if tf.shape(x)[0] < tf.shape(y)[0] : y=tf.slice(y,[0],[tf.shape(x)[0]])
+        if tf.shape(y)[0] < tf.shape(x)[0] : x=tf.slice(x,[0],[tf.shape(y)[0]])
+        return x, y
+
+
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    )
+    def stft(self, x):
+        return tf.signal.stft(x,
+                              self.win_length,
+                              self.hop_length,
+                              pad_end=self.pad_end)
+        
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
+    )
+    def istft(self, x):
+        return tf.signal.inverse_stft(x, 
+                                      self.win_length, 
+                                      self.hop_length)
+
+    @tf.function(
+        input_signature=[
+            tf.TensorSpec(shape=None, dtype=TF_CTYPE),
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+        ]
+    )
+    def complex_mul(self, x, y):
+        x_imag = tf.math.real(x)
+        x_real = tf.math.imag(x)
+        # fd: get rid of normalization
+        # x_abs_real = tf.math.abs(x_real)
+        # x_abs_imag = tf.math.abs(x_imag)
+
+        # # normalize real and imag
+        # x_real /= tf.math.reduce_max(x_abs_real)
+        # x_imag /= tf.math.reduce_max(x_abs_imag)
+        real, y = self.hard_resize(x_real,y)
+        imag, y = self.hard_resize(x_imag,y)
+        conv = tf.dtypes.complex(tf.math.multiply(real,y),
+                                 tf.math.multiply(imag,y))
+        return conv
+
+    @tf.function(
+        input_signature=[
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+        ]
+    )
+    def combine_1(self, x, y):
+        
+        # take short time fourier transform
+        X_mag, X_pha = self.magphase(self.stft(x))
+        Y_mag, Y_pha = self.magphase(self.stft(y))
+        
+        # get rid of tiny values
+        Y_mag *= ( 1 + tf.math.sign(Y_mag - self.threshold) ) * 0.5
+        Y_mag *= self.step_size
+
+        # multiply x by y
+        X_mag *= Y_mag
+
+        # take inverse fourier
+        X_real = self.istft(
+                tf.dtypes.complex(tf.math.pow(X_mag, 1/self.power)*X_pha,
+                    tf.zeros(tf.shape(X_mag), dtype=TF_DTYPE))) 
+
+        return X_real    
+    
+    @tf.function(
+        input_signature=[
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+        ]
+    )
+    def combine_2(self, x, y):
+        
+        # x is filtered
+        # y is the filter if target is none
+
+        X = self.stft(x)
+
+
+        Y = self.stft(y)
+        Yabs = tf.math.abs(Y) ** self.power
+        y_filter = Yabs
+
+        norm_y_filter = y_filter / tf.math.reduce_max(y_filter)
+        y_filter_thresh = norm_y_filter - self.threshold
+
+        y_filter *= (tf.math.sign(y_filter_thresh) + 1) * 0.5
+        y_filter *= self.step_size
+
+        X_y_filtered = self.complex_mul(X, y_filter)
+
+        x_real = self.istft(X_y_filtered)
+        x_real, y = self.hard_resize(x_real, y)
+        combined = tf.math.add(x_real, y)
+        y_filter_real = self.istft(
+                tf.dtypes.complex(y_filter,
+                    tf.zeros(tf.shape(y_filter), dtype=TF_DTYPE)))
+ 
+        return combined, x_real, y_filter_real
+    
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
+    )
+    def phase(self, z):
+        x = tf.math.real(z)
+        y = tf.math.imag(z)
+        x_neg = tf.cast(x < 0.0, TF_DTYPE)
+        y_neg = tf.cast(y < 0.0, TF_DTYPE)
+        y_pos = tf.cast(y >= 0.0, TF_DTYPE)
+        offset = x_neg * (y_pos - y_neg) * np.pi
+        return tf.math.atan(y / x) + offset
+
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
+    )
+    def magphase(self, x):
+        return tf.math.abs(x)**self.power, self.phase(x)
+
+
+    @tf.function(
+        input_signature=[
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE),
+        ]
+    )
+    def combine_3(self, x, y, target):
+        
+        # x is filtered
+        # y is a mask
+        # target is the filter
+
+        X_mag, X_pha = self.magphase(self.stft(x))
+        Y_mag, Y_pha = self.magphase(self.stft(y))
+        T_mag, T_pha = self.magphase(self.stft(target))
+
+        # filter out the target's magnitude with a mask
+        T_mag_norm = T_mag / tf.math.reduce_max(T_mag)
+        mask = T_mag_norm - self.threshold
+        T_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
+
+        # filter out y's magnitude with a mask
+        Y_mag_norm = Y_mag / tf.math.reduce_max(Y_mag)
+        mask = Y_mag_norm - self.threshold
+        Y_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
+
+        # combine all magnitudes and add phase of X
+        combined = tf.math.pow(X_mag * T_mag * Y_mag, 1/self.power) * X_pha
+
+        X_real = self.istft(
+                tf.dtypes.complex(combined,
+                    tf.zeros(tf.shape(combined), dtype=TF_DTYPE)))
+
+        T_real = self.istft(
+                tf.dtypes.complex(tf.math.pow(T_mag, 1/self.power)*T_pha,
+                    tf.zeros(tf.shape(T_mag), dtype=TF_DTYPE)))
+
+        Y_real = self.istft(
+                tf.dtypes.complex(tf.math.pow(Y_mag, 1/self.power)*Y_pha,
+                    tf.zeros(tf.shape(Y_mag), dtype=TF_DTYPE)))  
+ 
+        return X_real, Y_real, T_real
+
+
+        
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    )
+    def calc_loss(self, wavetensor):
+
+        act, argmax = self.class_from_audio(wavetensor)
+        
+        def a(): return tf.math.reduce_sum(act[:,self.classid])
+        def b(): return tf.math.reduce_sum(act[:,argmax])
+        
+        loss = tf.cond(self.use_target, a, b) 
+        loss **= self.loss_power
+
+        return loss, self.class_names_tensor[argmax]
+
+        
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    )
+    def class_from_audio(self, wavetensor):
+        # Pass forward the data through the model to retrieve the activations.
+        layer_activations = self.dreamer(wavetensor)
+        reduced = tf.math.reduce_mean(layer_activations, axis=0)
+        argmax = tf.math.argmax(reduced)
+        return layer_activations, argmax
+
+    def clip_or_pad(self, x, y):
+        """Clips or Pads X based on the size of Y
+
+        If x is greater than y, then clip x based on y
+        if x is smaller than y, then pad with zeros to match y
+        """
+        xdim = x.shape[0]
+        ydim = y.shape[0]
+        if xdim >= ydim:
+            x = x[:ydim]
+        else:
+            pad = np.zeros((ydim-xdim,y.shape[1]))
+            x = np.concatenate([x, pad])
+        return x
+
+    def dream(self, source, target=None):
+        
+        wt   = tf.convert_to_tensor(source, dtype=TF_DTYPE)
+        wr_  = None
+        wf_  = None
+        loss = tf.constant(0.0)
+
+        if target is not None:
+            target = self.clip_or_pad(target,source)
+            target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
+            _, self.classid = self.class_from_audio(target)
+            self.tgt_class = self.class_names[self.classid]
+            self.use_target = tf.constant(True, dtype=tf.bool)
+            if self.verbose:
+                tf.print(f"Target class: { self.tgt_class } ...")
+        else:
+            self.use_target = tf.constant(False, dtype=tf.bool)
+
+        # begin loop
+        for i in tf.range(self.steps):
+
+            # get the gradients
+            with tf.GradientTape() as tape:
+                tape.watch(wt)
+                loss, c = self.calc_loss(wt)
+           
+            if self.verbose:
+                tf.print(f"Running step {self.elapsed}, class: {c}...")
+
+            g_  = tape.gradient(loss, wt)
+            g_ /= tf.math.reduce_std(g_)
+
+            # combine spectra
+            if self.output_type == 0:
+                wt = self.combine_1(wt, g_)
+
+            elif self.output_type == 1:
+                wt += (g_ * self.step_size)
+
+            elif self.output_type == 2:
+                wt = self.combine_1(g_, wt)
+
+            elif self.output_type == 3:
+                if target is None:
+                    wt, wr_, wf_ = self.combine_2(g_, wt)
+                else:
+                    wt, wr_, wf_ = self.combine_3(g_, wt, target)
+
+            elif self.output_type == 4:
+                if target is None:
+                    wt, wr_, wf_ = self.combine_2(wt, g_)
+                else:
+                    wt, wr_, wf_ = self.combine_3(wt, g_, target)
+
+            elif self.output_type == 5:
+                # return gradients only
+                wt = g_
+            else:
+                # return only wavetensor
+                wt = wt
+
+            # plot and save
+            if (i+1) % self.plot_every == 0 and i > 0:
+                
+                # store data in self arrays          
+                w_min, s_min    = self.hard_resize(wt,source)
+                self.difference = tf.math.subtract(w_min, s_min)
+                self.difference = self.difference.numpy()
+                self.gradients  = g_.numpy()
+                self.wavetensor = wt.numpy()
+                
+                # plot
+                plots = [
+                    {0:"orig", 1:self.wavetensor},
+                    {0:"diff", 1:self.difference},
+                    {0:"grad", 1:self.gradients}
+                ]
+
+                if wr_ is not None:
+                    self.inverse = tf.transpose(wr_).numpy()
+                    plots.append({0:"filt", 1:self.inverse})
+                if wf_ is not None:
+                    self.filter = tf.transpose(wf_).numpy()
+                    plots.append({0:"hard", 1:self.filter})
+                
+                self.plot_and_save(
+                    plots = plots, 
+                    file  = f"{c}-{self.output_type}-{self.elapsed}"
+                )
+
+            # end main loop
+            self.elapsed += 1 # increment count
+
+        return wt.numpy()
+
+    def plot_and_save(self, plots, file):
+
+        image_file = self.image_dir + file + ".png"
+
+        fig = plt.figure(figsize=self.figsize)
+
+        for i in range(len(plots)):
+            rows = len(plots) // 2
+            cols = 3
+            plt.subplot(rows, cols, i + 1)
+            
+            waveform  = plots[i][1]
+            label = file.replace(" ","_") + "-" + plots[i][0]
+
+            mel_spec = librosa_mel(waveform)
+            mel_spec = np.log10(np.maximum(1e-05, mel_spec)) * 10.0
+            mel_spec = np.maximum(mel_spec, mel_spec.max()-self.top_db)
+            
+            plt.imshow(mel_spec, origin="lower", aspect="auto")
+            plt.title(label)
+            
+            if self.target is not None:
+                label += "-tgt-" + self.tgt_class.replace(" ","_")
+            
+            audio_file = self.audio_dir + label + ".wav"
+            
+            if self.save:
+                self.__print__(f"Writing {audio_file} ...")
+                sf.write(audio_file, waveform, self.sr, subtype="PCM_24")
+        
+        if self.save:
+            self.__print__(f"Writing {image_file} ...")
+            plt.savefig(image_file)
+
+        if self.play:
+            if IN_COLAB:
+                display(Audio(waveform, rate=self.sr))
+            else:
+                system(f"ffplay -autoexit {audio_file}")
+        
+        if self.show:
+            plt.show()
+
+        plt.close()
+
+    def print(self):
+        print(vars(self))
+
+# end DreamSound class

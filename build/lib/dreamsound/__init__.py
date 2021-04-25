@@ -5,5 +5,4 @@
 #  packate initialization routines
 #
 ###############################################################################
-
 from .dreamsound import DreamSound
