@@ -330,13 +330,6 @@ class DreamSound(object):
     def complex_mul(self, x, y):
         x_imag = tf.math.real(x)
         x_real = tf.math.imag(x)
-        # fd: get rid of normalization
-        # x_abs_real = tf.math.abs(x_real)
-        # x_abs_imag = tf.math.abs(x_imag)
-
-        # # normalize real and imag
-        # x_real /= tf.math.reduce_max(x_abs_real)
-        # x_imag /= tf.math.reduce_max(x_abs_imag)
         real, y = self.hard_resize(x_real,y)
         imag, y = self.hard_resize(x_imag,y)
         conv = tf.dtypes.complex(tf.math.multiply(real,y),
@@ -363,9 +356,7 @@ class DreamSound(object):
         X_mag *= Y_mag
 
         # take inverse fourier
-        X_real = self.istft(
-                tf.dtypes.complex(tf.math.pow(X_mag, 1/self.power)*X_pha,
-                    tf.zeros(tf.shape(X_mag), dtype=TF_DTYPE))) 
+        X_real = self.istft(self.complex_mul(X_pha, X_mag)) 
 
         return X_real    
     
@@ -381,11 +372,8 @@ class DreamSound(object):
         # y is the filter if target is none
 
         X = self.stft(x)
-
-
         Y = self.stft(y)
-        Yabs = tf.math.abs(Y) ** self.power
-        y_filter = Yabs
+        y_filter, y_pha = self.magphase(Y)
 
         norm_y_filter = y_filter / tf.math.reduce_max(y_filter)
         y_filter_thresh = norm_y_filter - self.threshold
@@ -398,9 +386,7 @@ class DreamSound(object):
         x_real = self.istft(X_y_filtered)
         x_real, y = self.hard_resize(x_real, y)
         combined = tf.math.add(x_real, y)
-        y_filter_real = self.istft(
-                tf.dtypes.complex(y_filter,
-                    tf.zeros(tf.shape(y_filter), dtype=TF_DTYPE)))
+        y_filter_real = self.istft(self.complex_mul(y_pha,y_filter))
  
         return combined, x_real, y_filter_real
     
@@ -451,24 +437,18 @@ class DreamSound(object):
         Y_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
 
         # combine all magnitudes and add phase of X
-        combined = tf.math.pow(X_mag * T_mag * Y_mag, 1/self.power) * X_pha
+        combined = (X_mag * T_mag) 
+        combined = tf.math.pow(combined, 1/self.power)
+        # combined += Y_mag
 
-        X_real = self.istft(
-                tf.dtypes.complex(combined,
-                    tf.zeros(tf.shape(combined), dtype=TF_DTYPE)))
+        output = self.istft(self.complex_mul(Y_pha, combined)) + y
 
-        T_real = self.istft(
-                tf.dtypes.complex(tf.math.pow(T_mag, 1/self.power)*T_pha,
-                    tf.zeros(tf.shape(T_mag), dtype=TF_DTYPE)))
+        T_real = self.istft(self.complex_mul(T_pha, T_mag))
 
-        Y_real = self.istft(
-                tf.dtypes.complex(tf.math.pow(Y_mag, 1/self.power)*Y_pha,
-                    tf.zeros(tf.shape(Y_mag), dtype=TF_DTYPE)))  
+        Y_real = self.istft(self.complex_mul(Y_pha, Y_mag))
  
-        return X_real, Y_real, T_real
+        return output, Y_real, T_real
 
-
-        
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
     )
