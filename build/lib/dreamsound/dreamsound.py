@@ -393,20 +393,15 @@ class DreamSound(object):
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
     )
-    def phase(self, z):
-        x = tf.math.real(z)
-        y = tf.math.imag(z)
-        x_neg = tf.cast(x < 0.0, TF_DTYPE)
-        y_neg = tf.cast(y < 0.0, TF_DTYPE)
-        y_pos = tf.cast(y >= 0.0, TF_DTYPE)
-        offset = x_neg * (y_pos - y_neg) * np.pi
-        return tf.math.atan(y / x) + offset
+    def phase(self, x):
+        im = tf.constant(1.0, dtype=TF_DTYPE)
+        return tf.complex(tf.math.exp(tf.math.angle(x)), im)
 
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
     )
     def magphase(self, x):
-        return tf.math.abs(x)**self.power, self.phase(x)
+        return tf.math.pow(tf.math.abs(x),self.power), self.phase(x)
 
 
     @tf.function(
@@ -441,8 +436,10 @@ class DreamSound(object):
         combined = tf.math.pow(combined, 1/self.power)
         # combined += Y_mag
 
-        output = self.istft(self.complex_mul(Y_pha, combined)) + y
-
+        output = self.istft(self.complex_mul(Y_pha, combined))
+        output, y = self.hard_resize(output, y)
+        output += y
+        
         T_real = self.istft(self.complex_mul(T_pha, T_mag))
 
         Y_real = self.istft(self.complex_mul(Y_pha, Y_mag))
