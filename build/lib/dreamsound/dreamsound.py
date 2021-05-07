@@ -137,8 +137,7 @@ class DreamSound(object):
     the input image increasingly "excites" the layers. 
     You can update the image by directly adding the gradients
     2 - combine spectra, flipped
-    3 - combine spectra, filtering by the original sound
-    4 - combine spectra, filtering by the original sound flipped
+    3 - Filter the gradient with the original sound
     5 - return gradients only
     
     anything else will only recurse on the original audio
@@ -358,8 +357,19 @@ class DreamSound(object):
         # take inverse fourier
         X_real = self.istft(self.complex_mul(X_pha, X_mag)) 
 
-        return X_real    
-    
+        return X_real
+
+    @tf.function(
+        input_signature=[
+            tf.TensorSpec(shape=None, dtype=TF_DTYPE)
+        ]
+    )
+    def normalize(self, x):
+        """Normalize x with x.max()
+        """
+        return x / tf.math.reduce_max(x)
+
+
     @tf.function(
         input_signature=[
             tf.TensorSpec(shape=None, dtype=TF_DTYPE),
@@ -367,42 +377,87 @@ class DreamSound(object):
         ]
     )
     def combine_2(self, x, y):
-        
-        # x is filtered
-        # y is the filter if target is none
+        """Filter the gradient with the original sound (keeping its phase)
 
+        Filtra el gradiente con el sonido original
+        Usando la phase del sonido original
+        
+        Description
+        -----------
+
+        1. The hard-cut filter is made of the magnitude of the original sound, 
+        - 1. normalizing the magnitude of the original sound
+        - 2. offsetting the magnitude down by `threshold`
+        - 3. hard-cutting the magnitude to values 0 or 1 depending on its sign.
+        - 4. attenuating the hard-cut filter by `step_size`
+        
+        2. Apply the hard-cut filter to the magnitude of the gradient by 
+        - 1. complex multiplication, and 
+        - 2. rephase with the original sound's phase
+
+        3. Inverse FFT
+        - 1. Compute the inverse sftf of the filtered gradient, and 
+        - 2. add back the (real) original sound by amount `1/step_size`
+        - 3. compute the inverse stft of the hard-cut filter (and rephase)
+        
+        Parameters
+        -----------
+        x = gradient
+        y = original sound
+    
+        Returns
+        -----------
+        return output, hard_cut_real
+
+        output        =   the new gradient with the added sound
+        hard_cut_real =   the hard cut filter
+
+        """
+        
         X = self.stft(x)
         Y = self.stft(y)
-        y_filter, y_pha = self.magphase(Y)
+        X_mag = tf.math.abs(X)
+        Y_mag, Y_pha = self.magphase(Y)
 
-        norm_y_filter = y_filter / tf.math.reduce_max(y_filter)
-        y_filter_thresh = norm_y_filter - self.threshold
-
-        y_filter *= (tf.math.sign(y_filter_thresh) + 1) * 0.5
-        y_filter *= self.step_size
-
-        X_y_filtered = self.complex_mul(X, y_filter)
-
-        x_real = self.istft(X_y_filtered)
-        x_real, y = self.hard_resize(x_real, y)
-        combined = tf.math.add(x_real, y)
-        y_filter_real = self.istft(self.complex_mul(y_pha,y_filter))
+        # normalize
+        Y_mag_norm = self.normalize(Y_mag)
+        # offset
+        Y_mag_offset = Y_mag_norm - self.threshold
+        # hard cut based on sign
+        hard_cut = (tf.math.sign(Y_mag_offset) + 1) * 0.5
+        # soften the cut by a tad
+        hard_cut *= self.step_size
+        # here we can either 
+        # a. apply the hard cut to the magnitude: `hard_cut *= Y_mag`, or
+        # b. keep the hard_cut as is: `hard_cut = hard_cut`
+        # the former lets the original sound in, the latter does not
+        # we are going with 'a'
+        hard_cut *= Y_mag
+        # apply the hard-cut filter to the magnitude of the gradient
+        X_mag_cut = hard_cut * X_mag
+        # apply the phase of the original sound to the filtered gradient mag
+        X_mag_rephased = self.complex_mul(Y_pha, X_mag_cut)
+        # compute the inverse stft on the cut and rephased magnitude
+        x_new = self.istft(X_mag_rephased)
+        # resize either x_new or y to min length so that we can add them
+        x_new, y = self.hard_resize(x_new, y)
+        # add a small amount of the sound to the new (real) gradient 
+        output = tf.math.add(x_new, y * (1-self.step_size) )
+        # inverse fft of the hard cut
+        hard_cut_real = self.istft(self.complex_mul(Y_pha,hard_cut))
  
-        return combined, x_real, y_filter_real
-    
-    @tf.function(
-        input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
-    )
-    def phase(self, x):
-        im = tf.constant(1.0, dtype=TF_DTYPE)
-        return tf.complex(tf.math.exp(tf.math.angle(x)), im)
+        return output, hard_cut_real
 
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
     )
     def magphase(self, x):
-        return tf.math.pow(tf.math.abs(x),self.power), self.phase(x)
-
+        """Return the magnitude and the phase of x
+        """
+        a = tf.math.abs(x)
+        ang = tf.math.angle(x)
+        p = tf.complex(tf.math.cos(ang), tf.math.sin(ang))
+        return tf.math.pow(a,self.power), p
 
     @tf.function(
         input_signature=[
@@ -422,12 +477,12 @@ class DreamSound(object):
         T_mag, T_pha = self.magphase(self.stft(target))
 
         # filter out the target's magnitude with a mask
-        T_mag_norm = T_mag / tf.math.reduce_max(T_mag)
+        T_mag_norm = self.normalize(T_mag)
         mask = T_mag_norm - self.threshold
         T_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
 
         # filter out y's magnitude with a mask
-        Y_mag_norm = Y_mag / tf.math.reduce_max(Y_mag)
+        Y_mag_norm = self.normalize(Y_mag)
         mask = Y_mag_norm - self.threshold
         Y_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
 
@@ -531,17 +586,11 @@ class DreamSound(object):
 
             elif self.output_type == 3:
                 if target is None:
-                    wt, wr_, wf_ = self.combine_2(g_, wt)
+                    wt, wf_ = self.combine_2(g_, wt)
                 else:
                     wt, wr_, wf_ = self.combine_3(g_, wt, target)
 
             elif self.output_type == 4:
-                if target is None:
-                    wt, wr_, wf_ = self.combine_2(wt, g_)
-                else:
-                    wt, wr_, wf_ = self.combine_3(wt, g_, target)
-
-            elif self.output_type == 5:
                 # return gradients only
                 wt = g_
             else:
