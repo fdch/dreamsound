@@ -3,5 +3,6 @@ __pycache__/
 *.egg-info
 publish*
 tests/*
+!tests/dreamsound_test.py
 .tox/*
 docs/dreamsound-research/

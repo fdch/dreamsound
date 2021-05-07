@@ -468,38 +468,39 @@ class DreamSound(object):
     )
     def combine_3(self, x, y, target):
         
-        # x is filtered
-        # y is a mask
-        # target is the filter
+        X = self.stft(x)
+        Y = self.stft(y)
+        X_mag = tf.math.abs(X)
+        Y_mag, Y_pha = self.magphase(self.stft(target))
 
-        X_mag, X_pha = self.magphase(self.stft(x))
-        Y_mag, Y_pha = self.magphase(self.stft(y))
-        T_mag, T_pha = self.magphase(self.stft(target))
-
-        # filter out the target's magnitude with a mask
-        T_mag_norm = self.normalize(T_mag)
-        mask = T_mag_norm - self.threshold
-        T_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
-
-        # filter out y's magnitude with a mask
+        # normalize
         Y_mag_norm = self.normalize(Y_mag)
-        mask = Y_mag_norm - self.threshold
-        Y_mag *= (tf.math.sign(mask) + 1) * 0.5 * self.step_size
-
-        # combine all magnitudes and add phase of X
-        combined = (X_mag * T_mag) 
-        combined = tf.math.pow(combined, 1/self.power)
-        # combined += Y_mag
-
-        output = self.istft(self.complex_mul(Y_pha, combined))
-        output, y = self.hard_resize(output, y)
-        output += y
-        
-        T_real = self.istft(self.complex_mul(T_pha, T_mag))
-
-        Y_real = self.istft(self.complex_mul(Y_pha, Y_mag))
+        # offset
+        Y_mag_offset = Y_mag_norm - self.threshold
+        # hard cut based on sign
+        hard_cut = (tf.math.sign(Y_mag_offset) + 1) * 0.5
+        # soften the cut by a tad
+        hard_cut *= self.step_size
+        # here we can either 
+        # a. apply the hard cut to the magnitude: `hard_cut *= Y_mag`, or
+        # b. keep the hard_cut as is: `hard_cut = hard_cut`
+        # the former lets the original sound in, the latter does not
+        # we are going with 'a'
+        hard_cut *= Y_mag
+        # apply the hard-cut filter to the magnitude of the gradient
+        X_mag_cut = hard_cut * X_mag
+        # apply the phase of the original sound to the filtered gradient mag
+        X_mag_rephased = self.complex_mul(Y_pha, X_mag_cut)
+        # compute the inverse stft on the cut and rephased magnitude
+        x_new = self.istft(X_mag_rephased)
+        # resize either x_new or y to min length so that we can add them
+        x_new, y = self.hard_resize(x_new, y)
+        # add a small amount of the sound to the new (real) gradient 
+        output = tf.math.add(x_new, y * (1-self.step_size) )
+        # inverse fft of the hard cut
+        hard_cut_real = self.istft(self.complex_mul(Y_pha,hard_cut))
  
-        return output, Y_real, T_real
+        return output, hard_cut_real
 
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
@@ -588,7 +589,7 @@ class DreamSound(object):
                 if target is None:
                     wt, wf_ = self.combine_2(g_, wt)
                 else:
-                    wt, wr_, wf_ = self.combine_3(g_, wt, target)
+                    wt, wf_ = self.combine_3(g_, wt, target)
 
             elif self.output_type == 4:
                 # return gradients only
@@ -614,9 +615,6 @@ class DreamSound(object):
                     {0:"grad", 1:self.gradients}
                 ]
 
-                if wr_ is not None:
-                    self.inverse = tf.transpose(wr_).numpy()
-                    plots.append({0:"filt", 1:self.inverse})
                 if wf_ is not None:
                     self.filter = tf.transpose(wf_).numpy()
                     plots.append({0:"hard", 1:self.filter})
