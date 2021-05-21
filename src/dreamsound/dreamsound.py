@@ -665,7 +665,7 @@ class DreamSound(object):
 
         if self.play:
             if IN_COLAB:
-                display(Audio(waveform, rate=self.sr))
+                display(Audio(self.wavetensor, rate=self.sr))
             else:
                 system(f"ffplay -autoexit {audio_file}")
         
