@@ -152,10 +152,10 @@ class DreamSound(object):
     plot_every  = 10
     figsize     = (10,8)
     top_db      = 80.0
-    step_size   = 0.95
+    step_size   = 0.2
     output_type = 3
     steps       = 10
-    threshold   = 1e-07
+    threshold   = 0.5
     classid     = None
     maxloss     = True
     elapsed     = 0
@@ -389,7 +389,6 @@ class DreamSound(object):
         - 1. normalizing the magnitude of the original sound
         - 2. offsetting the magnitude down by `threshold`
         - 3. hard-cutting the magnitude to values 0 or 1 depending on its sign.
-        - 4. attenuating the hard-cut filter by `step_size`
         
         2. Apply the hard-cut filter to the magnitude of the gradient by 
         - 1. complex multiplication, and 
@@ -397,7 +396,7 @@ class DreamSound(object):
 
         3. Inverse FFT
         - 1. Compute the inverse sftf of the filtered gradient, and 
-        - 2. add back the (real) original sound by amount `1/step_size`
+        - 2. Add the attenuated gradients (by `step_size`) to the (real) original sound
         - 3. compute the inverse stft of the hard-cut filter (and rephase)
         
         Parameters
@@ -416,8 +415,8 @@ class DreamSound(object):
         
         X = self.stft(x)
         Y = self.stft(y)
-        X_mag = tf.math.abs(X)
-        Y_mag, Y_pha = self.magphase(Y)
+        X_mag, X_pha = self.magphase(X)
+        Y_mag = tf.math.abs(Y)
 
         # normalize
         Y_mag_norm = self.normalize(Y_mag)
@@ -432,11 +431,11 @@ class DreamSound(object):
         # b. keep the hard_cut as is: `hard_cut = hard_cut`
         # the former lets the original sound in, the latter does not
         # we are going with 'a'
-        hard_cut *= Y_mag
+        # hard_cut *= Y_mag
         # apply the hard-cut filter to the magnitude of the gradient
         X_mag_cut = hard_cut * X_mag
         # apply the phase of the original sound to the filtered gradient mag
-        X_mag_rephased = self.complex_mul(Y_pha, X_mag_cut)
+        X_mag_rephased = self.complex_mul(X_pha, X_mag_cut)
         # compute the inverse stft on the cut and rephased magnitude
         x_new = self.istft(X_mag_rephased)
         # resize either x_new or y to min length so that we can add them
@@ -444,7 +443,7 @@ class DreamSound(object):
         # add a small amount of the sound to the new (real) gradient 
         output = tf.math.add(x_new, y * (1-self.step_size) )
         # inverse fft of the hard cut
-        hard_cut_real = self.istft(self.complex_mul(Y_pha,hard_cut))
+        hard_cut_real = self.istft(self.complex_mul(X_pha,hard_cut))
  
         return output, hard_cut_real
 
@@ -469,7 +468,7 @@ class DreamSound(object):
     def combine_3(self, x, y, target):
         
         X = self.stft(x)
-        Y = self.stft(y)
+
         X_mag = tf.math.abs(X)
         Y_mag, Y_pha = self.magphase(self.stft(target))
 
@@ -479,14 +478,12 @@ class DreamSound(object):
         Y_mag_offset = Y_mag_norm - self.threshold
         # hard cut based on sign
         hard_cut = (tf.math.sign(Y_mag_offset) + 1) * 0.5
-        # soften the cut by a tad
-        hard_cut *= self.step_size
         # here we can either 
         # a. apply the hard cut to the magnitude: `hard_cut *= Y_mag`, or
         # b. keep the hard_cut as is: `hard_cut = hard_cut`
         # the former lets the original sound in, the latter does not
         # we are going with 'a'
-        hard_cut *= Y_mag
+        # hard_cut *= Y_mag
         # apply the hard-cut filter to the magnitude of the gradient
         X_mag_cut = hard_cut * X_mag
         # apply the phase of the original sound to the filtered gradient mag
@@ -496,7 +493,7 @@ class DreamSound(object):
         # resize either x_new or y to min length so that we can add them
         x_new, y = self.hard_resize(x_new, y)
         # add a small amount of the sound to the new (real) gradient 
-        output = tf.math.add(x_new, y * (1-self.step_size) )
+        output = tf.math.add(x_new * self.step_size, y)
         # inverse fft of the hard cut
         hard_cut_real = self.istft(self.complex_mul(Y_pha,hard_cut))
  
@@ -665,7 +662,7 @@ class DreamSound(object):
 
         if self.play:
             if IN_COLAB:
-                display(Audio(waveform, rate=self.sr))
+                display(Audio(self.wavetensor, rate=self.sr))
             else:
                 system(f"ffplay -autoexit {audio_file}")
         
