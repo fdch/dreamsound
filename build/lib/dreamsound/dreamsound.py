@@ -145,8 +145,10 @@ class DreamSound(object):
     sr          = 22050
     max_dur     = 10
     patch_hop   = 0.1
+    fft_length  = 4096
     win_length  = 2048
     hop_length  = 128
+    window_fn   = tf.signal.hann_window
     pad_end     = False
     loss_power  = 0.001
     plot_every  = 10
@@ -183,6 +185,9 @@ class DreamSound(object):
         if "mkidr" in dir():
             if not exists(self.audio_dir): mkdir(self.audio_dir)
             if not exists(self.image_dir): mkdir(self.audio_dir)
+        
+        self.i_window_fn = tf.signal.inverse_stft_window_fn(self.hop_length)
+
 
     def __call__(self, audio_index=None, target=None):
 
@@ -308,17 +313,21 @@ class DreamSound(object):
     )
     def stft(self, x):
         return tf.signal.stft(x,
-                              self.win_length,
-                              self.hop_length,
+                              frame_length=self.win_length,
+                              frame_step=self.hop_length,
+                              fft_length=self.fft_length,
+                              window_fn=self.window_fn,
                               pad_end=self.pad_end)
         
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_CTYPE)]
     )
     def istft(self, x):
-        return tf.signal.inverse_stft(x, 
-                                      self.win_length, 
-                                      self.hop_length)
+        return tf.signal.inverse_stft(x,
+                              frame_length=self.win_length,
+                              frame_step=self.hop_length,
+                              fft_length=self.fft_length,
+                              window_fn=self.i_window_fn)
 
     @tf.function(
         input_signature=[
@@ -424,14 +433,6 @@ class DreamSound(object):
         Y_mag_offset = Y_mag_norm - self.threshold
         # hard cut based on sign
         hard_cut = (tf.math.sign(Y_mag_offset) + 1) * 0.5
-        # soften the cut by a tad
-        hard_cut *= self.step_size
-        # here we can either 
-        # a. apply the hard cut to the magnitude: `hard_cut *= Y_mag`, or
-        # b. keep the hard_cut as is: `hard_cut = hard_cut`
-        # the former lets the original sound in, the latter does not
-        # we are going with 'a'
-        # hard_cut *= Y_mag
         # apply the hard-cut filter to the magnitude of the gradient
         X_mag_cut = hard_cut * X_mag
         # apply the phase of the original sound to the filtered gradient mag
@@ -441,7 +442,7 @@ class DreamSound(object):
         # resize either x_new or y to min length so that we can add them
         x_new, y = self.hard_resize(x_new, y)
         # add a small amount of the sound to the new (real) gradient 
-        output = tf.math.add(x_new, y * (1-self.step_size) )
+        output = tf.math.add(x_new * self.step_size, y)
         # inverse fft of the hard cut
         hard_cut_real = self.istft(self.complex_mul(X_pha,hard_cut))
  
