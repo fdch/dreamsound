@@ -33,7 +33,7 @@ else:
 
 TF_DTYPE, TF_CTYPE = tf.float64, tf.complex128
 
-__version__ = "0.1.5.3"
+__version__ = "0.1.5.4"
 
 class DreamSound(object):
     """DreamSound class definition
@@ -150,7 +150,6 @@ class DreamSound(object):
     fft_length  = 4096
     win_length  = 2048
     hop_length  = 128
-    window_fn   = tf.signal.hann_window
     pad_end     = False
     loss_power  = 0.001
     plot_every  = 10
@@ -321,7 +320,6 @@ class DreamSound(object):
                               frame_length=self.win_length,
                               frame_step=self.hop_length,
                               fft_length=self.fft_length,
-                              window_fn=self.window_fn,
                               pad_end=self.pad_end)
         
     @tf.function(
@@ -331,8 +329,7 @@ class DreamSound(object):
         return tf.signal.inverse_stft(x,
                               frame_length=self.win_length,
                               frame_step=self.hop_length,
-                              fft_length=self.fft_length,
-                              window_fn=self.i_window_fn)
+                              fft_length=self.fft_length)
 
     @tf.function(
         input_signature=[
@@ -515,8 +512,9 @@ class DreamSound(object):
         def classact(): return tf.math.reduce_sum(act[:,self.classid])
         def argmaxact(): return tf.math.reduce_sum(act[:,argmax])
         def sumlosses(): return tf.math.reduce_sum(losses)
-        
-        loss = tf.cond(self.use_target, classact, tf.cond(self.use_argmax, argmaxact, sumlosses)) 
+        def notarg(): return tf.cond(self.use_argmax, argmaxact, sumlosses)
+
+        loss = tf.cond(self.use_target, classact, notarg) 
         loss **= self.loss_power
 
         return loss, self.class_names_tensor[argmax]
@@ -530,7 +528,7 @@ class DreamSound(object):
         layer_activations = self.dreamer(wavetensor)
         reduced = tf.math.reduce_mean(layer_activations, axis=0)
         argmax = tf.math.argmax(reduced)
-        losses = [tf.math.reduce_mean(act) for act in layer_activations]
+        losses = tf.map_fn(lambda x:tf.math.reduce_mean(x),layer_activations)
         return layer_activations, argmax, losses
 
     def clip_or_pad(self, x, y):
@@ -558,7 +556,7 @@ class DreamSound(object):
         if target is not None:
             target = self.clip_or_pad(target,source)
             target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
-            _, self.classid = self.class_from_audio(target)
+            _, self.classid, _ = self.class_from_audio(target)
             self.tgt_class = self.class_names[self.classid]
             self.use_target = tf.constant(True, dtype=tf.bool)
             if self.verbose:
