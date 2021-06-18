@@ -5,4 +5,4 @@ publish*
 tests/*
 !tests/dreamsound_test.py
 .tox/*
-docs/dreamsound-research/
+docs/research/

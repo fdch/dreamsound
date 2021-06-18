@@ -33,6 +33,8 @@ else:
 
 TF_DTYPE, TF_CTYPE = tf.float64, tf.complex128
 
+__version__ = "0.1.5.3"
+
 class DreamSound(object):
     """DreamSound class definition
     
@@ -162,6 +164,7 @@ class DreamSound(object):
     maxloss     = True
     elapsed     = 0
     recurse     = False
+    argmax      = False
     target      = None
     tgt_class   = None
     power       = 1.0 / 8.0
@@ -189,7 +192,7 @@ class DreamSound(object):
         self.i_window_fn = tf.signal.inverse_stft_window_fn(self.hop_length)
 
 
-    def __call__(self, audio_index=None, target=None):
+    def __call__(self, audio_index=None, target=None, argmax=False):
 
         # first time, no index given
         if audio_index is None and not self.recurse:
@@ -209,7 +212,9 @@ class DreamSound(object):
         if target is not None:
             self.target = self.audio[target]
 
-        self.x = self.dream(w, target=self.target)
+        self.argmax = argmax
+
+        self.x = self.dream(w, target=self.target, argmax=self.argmax)
 
         # enable recursion after first run
         self.recurse = True
@@ -505,12 +510,13 @@ class DreamSound(object):
     )
     def calc_loss(self, wavetensor):
 
-        act, argmax = self.class_from_audio(wavetensor)
+        act, argmax, losses = self.class_from_audio(wavetensor)
         
-        def a(): return tf.math.reduce_sum(act[:,self.classid])
-        def b(): return tf.math.reduce_sum(act[:,argmax])
+        def classact(): return tf.math.reduce_sum(act[:,self.classid])
+        def argmaxact(): return tf.math.reduce_sum(act[:,argmax])
+        def sumlosses(): return tf.math.reduce_sum(losses)
         
-        loss = tf.cond(self.use_target, a, b) 
+        loss = tf.cond(self.use_target, classact, tf.cond(self.use_argmax, argmaxact, sumlosses)) 
         loss **= self.loss_power
 
         return loss, self.class_names_tensor[argmax]
@@ -524,7 +530,8 @@ class DreamSound(object):
         layer_activations = self.dreamer(wavetensor)
         reduced = tf.math.reduce_mean(layer_activations, axis=0)
         argmax = tf.math.argmax(reduced)
-        return layer_activations, argmax
+        losses = [tf.math.reduce_mean(act) for act in layer_activations]
+        return layer_activations, argmax, losses
 
     def clip_or_pad(self, x, y):
         """Clips or Pads X based on the size of Y
@@ -541,7 +548,7 @@ class DreamSound(object):
             x = np.concatenate([x, pad])
         return x
 
-    def dream(self, source, target=None):
+    def dream(self, source, target=None, argmax=False):
         
         wt   = tf.convert_to_tensor(source, dtype=TF_DTYPE)
         wr_  = None
@@ -558,6 +565,9 @@ class DreamSound(object):
                 tf.print(f"Target class: { self.tgt_class } ...")
         else:
             self.use_target = tf.constant(False, dtype=tf.bool)
+        
+        self.use_argmax = tf.constant(argmax, dtype=tf.bool)
+
 
         # begin loop
         for i in tf.range(self.steps):
