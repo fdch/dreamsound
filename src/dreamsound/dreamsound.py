@@ -33,7 +33,7 @@ else:
 
 TF_DTYPE, TF_CTYPE = tf.float64, tf.complex128
 
-__version__ = "0.1.5.4"
+__version__ = "0.1.5.5"
 
 class DreamSound(object):
     """DreamSound class definition
@@ -164,6 +164,7 @@ class DreamSound(object):
     elapsed     = 0
     recurse     = False
     argmax      = False
+    flip        = False
     target      = None
     tgt_class   = None
     power       = 1.0 / 8.0
@@ -191,7 +192,7 @@ class DreamSound(object):
         self.i_window_fn = tf.signal.inverse_stft_window_fn(self.hop_length)
 
 
-    def __call__(self, audio_index=None, target=None, argmax=False):
+    def __call__(self, audio_index=None, target=None, argmax=False, flip=False):
 
         # first time, no index given
         if audio_index is None and not self.recurse:
@@ -212,6 +213,7 @@ class DreamSound(object):
             self.target = self.audio[target]
 
         self.argmax = argmax
+        self.flip = flip
 
         self.x = self.dream(w, target=self.target, argmax=self.argmax)
 
@@ -280,7 +282,8 @@ class DreamSound(object):
         self.__print__(f"DreamSound has {len(self.audio)} audio files in memory.")
 
     def clear_audio(self):
-        del self.audio
+        if len(self.audio) > 0:
+            del self.audio
         self.audio = []
         self.__print__(f"DreamSound {len(self.audio)} audio files in memory.")
 
@@ -517,9 +520,24 @@ class DreamSound(object):
         loss = tf.cond(self.use_target, classact, notarg) 
         loss **= self.loss_power
 
-        return loss, self.class_names_tensor[argmax]
+        return loss, argmax
 
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    )
+    def calc_gradients(self, input_tensor):
         
+        # get the normalized gradients
+        
+        with tf.GradientTape(persistent=False) as tape:
+            tape.watch(input_tensor)
+            loss, argmax = self.calc_loss(input_tensor)
+
+        gradients  = tape.gradient(loss, input_tensor)
+        gradients /= tf.math.reduce_std(gradients) + 1e-8 
+
+        return gradients, argmax
+
     @tf.function(
         input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
     )
@@ -531,20 +549,20 @@ class DreamSound(object):
         losses = tf.map_fn(lambda x:tf.math.reduce_mean(x),layer_activations)
         return layer_activations, argmax, losses
 
-    def clip_or_pad(self, x, y):
-        """Clips or Pads X based on the size of Y
+    # def clip_or_pad(self, x, y):
+    #     """Clips or Pads X based on the size of Y
 
-        If x is greater than y, then clip x based on y
-        if x is smaller than y, then pad with zeros to match y
-        """
-        xdim = x.shape[0]
-        ydim = y.shape[0]
-        if xdim >= ydim:
-            x = x[:ydim]
-        else:
-            pad = np.zeros((ydim-xdim,y.shape[1]))
-            x = np.concatenate([x, pad])
-        return x
+    #     If x is greater than y, then clip x based on y
+    #     if x is smaller than y, then pad with zeros to match y
+    #     """
+    #     xdim = x.shape[0]
+    #     ydim = y.shape[0]
+    #     if xdim >= ydim:
+    #         x = x[:ydim]
+    #     else:
+    #         pad = np.zeros((ydim-xdim,y.shape[1]))
+    #         x = np.concatenate([x, pad])
+    #     return x
 
     def dream(self, source, target=None, argmax=False):
         
@@ -554,8 +572,8 @@ class DreamSound(object):
         loss = tf.constant(0.0)
 
         if target is not None:
-            target = self.clip_or_pad(target,source)
             target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
+            target, wt = self.hard_resize(target, wt)
             _, self.classid, _ = self.class_from_audio(target)
             self.tgt_class = self.class_names[self.classid]
             self.use_target = tf.constant(True, dtype=tf.bool)
@@ -570,48 +588,111 @@ class DreamSound(object):
         # begin loop
         for i in tf.range(self.steps):
 
-            # get the gradients
-            with tf.GradientTape() as tape:
-                tape.watch(wt)
-                loss, c = self.calc_loss(wt)
-           
+            # get the gradients and the class name
+            wt_g, wt_argmax = self.calc_gradients(wt)
+
+            wt_c = self.class_names_tensor[wt_argmax]
+            
             if self.verbose:
-                tf.print(f"Running step {self.elapsed}, class: {c}...")
+                tf.print(f"Running step {self.elapsed}, class: {wt_c} ...")
+            
+            
+            # Activation Maximization Function Options
 
-            g_  = tape.gradient(loss, wt)
-            g_ /= tf.math.reduce_std(g_)
-
-            # combine spectra
             if self.output_type == 0:
-                wt = self.combine_1(wt, g_)
+                if self.flip:
+                    wt_g += (wt * self.step_size)
+                else:
+                    wt += (wt_g * self.step_size)
+
+            
 
             elif self.output_type == 1:
-                wt += (g_ * self.step_size)
+                if self.flip:
+                    wt = self.combine_1(wt_g, wt)
+                else:
+                    wt = self.combine_1(wt, wt_g)
+
+            
 
             elif self.output_type == 2:
-                wt = self.combine_1(g_, wt)
+                if target is None:
+                    if self.flip:
+                        wt, wf_ = self.combine_2(wt, wt_g)
+                    else:
+                        wt, wf_ = self.combine_2(wt_g, wt)
+                else:
+                    if self.flip:
+                        wt, wf_ = self.combine_3(wt_g, wt, target)
+                    else:
+                        wt, wf_ = self.combine_3(wt, wt_g, target)
+
+            
 
             elif self.output_type == 3:
                 if target is None:
-                    wt, wf_ = self.combine_2(g_, wt)
+                    # return gradients only
+                    wt = wt_g
                 else:
-                    wt, wf_ = self.combine_3(g_, wt, target)
+                    # take the gradient of the target loss 
+                    # and point towards an obscure direction
+                    tgt_g_, tgt_argmax = self.calc_gradients(target)
 
-            elif self.output_type == 4:
-                # return gradients only
-                wt = g_
+                    tgt_c = self.class_names_tensor[tgt_argmax]
+                    
+                    if self.verbose:
+                        tf.print(f"Target class: {tgt_c} ...")
+
+                    if self.flip:
+                        tgt_wt, wf_ = self.combine_3(target, wt_g, tgt_g_)
+                    else:
+                        tgt_wt, wf_ = self.combine_3(wt_g, target, tgt_g_)
+                    
+                    tgt_wt, wt = self.hard_resize(tgt_wt, wt)
+                    
+                    wt = tf.math.add(wt, 
+                            tf.math.multiply(tgt_wt,
+                                self.step_size))
+            
+            
             else:
-                # return only wavetensor
+                # return only wavetensor, unchanged
                 wt = wt
 
+                # if target is not None:
+                #     # take the gradient of the target loss against the input
+                #     # and point in that direction
+                #     with tf.GradientTape() as tgt_tape:
+                #         tgt_tape.watch([wt, target])
+                #         wt = wt
+                #         tgt_loss, tgt_argmax = self.calc_loss(target)
+
+                #     tgt_c = self.class_names_tensor[tgt_argmax]
+                    
+                #     if self.verbose:
+                #         tf.print(f"Target class: {tgt_c} ...")
+                    
+                #     tgt_g_ = tgt_tape.gradient(tgt_loss, wt)
+                #     tgt_g_ /= tf.math.reduce_std(tgt_g_) + 1e-8
+                    
+                #     tgt_g_, wt = self.hard_resize(tgt_g_, wt)
+
+                #     wt = tf.math.add(wt, 
+                #             tf.math.multiply(tgt_g_,
+                #                 self.step_size))
+
+            
+            
             # plot and save
+            
+
             if (i+1) % self.plot_every == 0 and i > 0:
                 
                 # store data in self arrays          
                 w_min, s_min    = self.hard_resize(wt,source)
                 self.difference = tf.math.subtract(w_min, s_min)
                 self.difference = self.difference.numpy()
-                self.gradients  = g_.numpy()
+                self.gradients  = wt_g.numpy()
                 self.wavetensor = wt.numpy()
                 
                 # plot
@@ -627,7 +708,7 @@ class DreamSound(object):
                 
                 self.plot_and_save(
                     plots = plots, 
-                    file  = f"{c}-{self.output_type}-{self.elapsed}"
+                    file  = f"{wt_c}-{self.output_type}-{self.elapsed}"
                 )
 
             # end main loop
