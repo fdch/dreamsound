@@ -501,49 +501,68 @@ class DreamSound(object):
  
         return output, hard_cut_real
 
-    @tf.function(
-        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
-    )
+    # @tf.function(
+    #     input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    # )
     def calc_loss(self, wavetensor):
 
         act, argmax, losses = self.class_from_audio(wavetensor)
+
+        if self.classid is not None:
+            loss =  tf.math.reduce_sum(act[:,self.classid])
+        else:
+            loss =  tf.math.reduce_sum(act[:,argmax])
+
+        return loss ** self.loss_power, self.class_names[argmax]
         
-        def classact(): return tf.math.reduce_sum(act[:,self.classid])
-        def argmaxact(): return tf.math.reduce_sum(act[:,argmax])
-        def sumlosses(): return tf.math.reduce_sum(losses)
-        def notarg(): return tf.cond(self.use_argmax, argmaxact, sumlosses)
+        # def classact(): return tf.math.reduce_sum(act[:,self.classid])
+        # def argmaxact(): return tf.math.reduce_sum(act[:,argmax])
+        # def sumlosses(): return tf.math.reduce_sum(losses)
+        # def notarg(): return tf.cond(self.use_argmax, argmaxact, sumlosses)
 
-        loss = tf.cond(self.use_target, classact, notarg) 
-        loss **= self.loss_power
+        # loss = tf.cond(self.use_target, classact, notarg) 
+        # loss **= self.loss_power
 
-        return loss, argmax
+        # return loss, argmax
 
-    @tf.function(
-        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
-    )
+    # @tf.function(
+    #     input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    # )
     def calc_gradients(self, input_tensor):
         
         # get the normalized gradients
         
         with tf.GradientTape(persistent=False) as tape:
             tape.watch(input_tensor)
-            loss, argmax = self.calc_loss(input_tensor)
+            loss, c = self.calc_loss(input_tensor)
 
         gradients  = tape.gradient(loss, input_tensor)
         gradients /= tf.math.reduce_std(gradients) + 1e-8 
 
-        return gradients, argmax
+        return gradients, c
 
-    @tf.function(
-        input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
-    )
+    # @tf.function(
+    #     input_signature=[tf.TensorSpec(shape=None, dtype=TF_DTYPE)]
+    # )
     def class_from_audio(self, wavetensor):
         # Pass forward the data through the model to retrieve the activations.
-        layer_activations = self.dreamer(wavetensor)
+
+        layer_activations = self.dreamer(waveform)
         reduced = tf.math.reduce_mean(layer_activations, axis=0)
         argmax = tf.math.argmax(reduced)
         losses = tf.map_fn(lambda x:tf.math.reduce_mean(x),layer_activations)
         return layer_activations, argmax, losses
+
+
+
+
+
+
+
+        # layer_activations = self.dreamer(wavetensor)
+        # reduced = tf.math.reduce_mean(layer_activations, axis=0)
+        # argmax = tf.math.reduce_max(tf.math.argmax(reduced))
+        # return layer_activations, argmax, losses
 
     # def clip_or_pad(self, x, y):
     #     """Clips or Pads X based on the size of Y
@@ -571,7 +590,7 @@ class DreamSound(object):
             target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
             target, wt = self.hard_resize(target, wt)
             _, self.classid, _ = self.class_from_audio(target)
-            self.tgt_class = self.class_names[tf.math.reduce_max(self.classid)]
+            self.tgt_class = self.class_names[self.classid]
             self.use_target = tf.constant(True, dtype=tf.bool)
             if self.verbose:
                 tf.print(f"Target class: { self.tgt_class } ...")
@@ -585,9 +604,9 @@ class DreamSound(object):
         for i in tf.range(self.steps):
 
             # get the gradients and the class name
-            wt_g, wt_argmax = self.calc_gradients(wt)
+            wt_g, wt_c = self.calc_gradients(wt)
 
-            wt_c = self.class_names_tensor[wt_argmax]
+
             
             if self.verbose:
                 tf.print(f"Running step {self.elapsed}, class: {wt_c} ...")
@@ -632,9 +651,8 @@ class DreamSound(object):
                 else:
                     # take the gradient of the target loss 
                     # and point towards an obscure direction
-                    tgt_g_, tgt_argmax = self.calc_gradients(target)
+                    tgt_g_, tgt_c = self.calc_gradients(target)
 
-                    tgt_c = self.class_names_tensor[tgt_argmax]
                     
                     if self.verbose:
                         tf.print(f"Target class: {tgt_c} ...")
