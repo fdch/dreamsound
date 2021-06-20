@@ -547,7 +547,7 @@ class DreamSound(object):
     def class_from_audio(self, wavetensor):
         # Pass forward the data through the model to retrieve the activations.
 
-        layer_activations = self.dreamer(waveform)
+        layer_activations = self.dreamer(wavetensor)
         reduced = tf.math.reduce_mean(layer_activations, axis=0)
         argmax = tf.math.argmax(reduced)
         losses = tf.map_fn(lambda x:tf.math.reduce_mean(x),layer_activations)
