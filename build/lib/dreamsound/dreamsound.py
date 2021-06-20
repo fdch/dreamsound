@@ -570,8 +570,8 @@ class DreamSound(object):
         if target is not None:
             target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
             target, wt = self.hard_resize(target, wt)
-            _, argmax, _ = self.class_from_audio(target)
-            self.tgt_class = self.class_names_tensor[argmax]
+            _, tgt_argmax, _ = self.class_from_audio(target)
+            self.tgt_class = self.class_names[tgt_argmax]
             self.use_target = tf.constant(True, dtype=tf.bool)
             if self.verbose:
                 tf.print(f"Target class: { self.tgt_class } ...")
