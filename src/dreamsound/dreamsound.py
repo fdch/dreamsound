@@ -571,7 +571,7 @@ class DreamSound(object):
             target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
             target, wt = self.hard_resize(target, wt)
             _, self.classid, _ = self.class_from_audio(target)
-            self.tgt_class = self.class_names[tf.math.argmax(self.classid)]
+            self.tgt_class = self.class_names[tf.math.reduce_max(self.classid)]
             self.use_target = tf.constant(True, dtype=tf.bool)
             if self.verbose:
                 tf.print(f"Target class: { self.tgt_class } ...")
