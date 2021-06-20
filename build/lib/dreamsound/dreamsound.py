@@ -508,7 +508,7 @@ class DreamSound(object):
 
         act, argmax, losses = self.class_from_audio(wavetensor)
         
-        def classact(): return tf.math.reduce_sum(act[:,self.classid])
+        def classact(): return tf.math.reduce_sum(act[:,self.tgt_class])
         def argmaxact(): return tf.math.reduce_sum(act[:,argmax])
         def sumlosses(): return tf.math.reduce_sum(losses)
         def notarg(): return tf.cond(self.use_argmax, argmaxact, sumlosses)
@@ -570,8 +570,8 @@ class DreamSound(object):
         if target is not None:
             target = tf.convert_to_tensor(target, dtype=TF_DTYPE)
             target, wt = self.hard_resize(target, wt)
-            _, self.classid, _ = self.class_from_audio(target)
-            self.tgt_class = self.class_names[self.classid]
+            _, argmax, _ = self.class_from_audio(target)
+            self.tgt_class = self.class_names_tensor[argmax]
             self.use_target = tf.constant(True, dtype=tf.bool)
             if self.verbose:
                 tf.print(f"Target class: { self.tgt_class } ...")
