@@ -33,8 +33,6 @@ else:
 
 TF_DTYPE, TF_CTYPE = tf.float64, tf.complex128
 
-__version__ = "0.1.5.5"
-
 class DreamSound(object):
     """DreamSound class definition
     
@@ -79,7 +77,6 @@ class DreamSound(object):
     steps       : (int) number of steps to recurse (10) 
     threshold   : (float) tiny threshold for filtering (1e-07) 
     classid     : (str|int) use specific class or auto-classify (None) 
-    maxloss     : (bool) get the class of the maximum loss (True) 
     elapsed     : (int) how many steps performed so far (0) 
     recurse     : (bool) prevent loading recursively on first run   (False) 
     target      : (int) if specified, that indexed audio is the filter (None) 
@@ -156,11 +153,10 @@ class DreamSound(object):
     figsize     = (10,8)
     top_db      = 80.0
     step_size   = 0.2
-    output_type = 3
+    output_type = 0
     steps       = 10
     threshold   = 0.5
     classid     = None
-    maxloss     = True
     elapsed     = 0
     recurse     = False
     argmax      = False
