@@ -10,7 +10,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{xcolor}
-% \usepackage[T1]{fontenc}%
+\usepackage{courier}
+\usepackage{float}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,frame=bottomline}
+
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.15,0.15,0.15}
@@ -32,43 +36,71 @@
 
 \begin{sloppy}
 \begin{abstract}
+Deep learning (DL) in audio signal processing has received much attention in the last four years, and it is still a growing field.
+Some attempts were made to translate deep networks from image to audio applications, and we discuss some of the issues that arise.
+In the present paper, we present DreamSound, a creative adaptation of Deep Dream to sound addressed from two approaches: \textit{input manipulation}, and \textit{sonification design}. Our chosen model is YAMNet, a pre-trained deep network for sound classification. We present the original Deep Dream \textit{activation maximization} function in relation to three filter-based creative variations that were implemented. We find that more interesting results are achieved with this filter-based approach, but that there is still room for experimentation. 
 
 \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
 
-Deep learning (DL) in audio signal processing has received much attention in the last four years, and it is still a growing field.\footnote{See \cite{2019Purwins} for a complete review, \cite{Briot2017} for a published book, as well as\cite{herremans2017proceedings} for the first dedicated workshop, and \cite{choi2017tutorial} and the repositories for DL4M \cite{Bayle2017} and the Aalto courses \cite{Koray2018} for introductiory tutorials. For the use of DL for symbolic music representations, see \cite{yang2017midinet, Briot2018AnET, rachel_manzelli_2018_1492375, hao_wen_dong_2018_1492377, mittal2021symbolic, MuseGanPapers}}  The Music Information Retrieval (MIR) community incorporated DL via large-scale audio datasets that came as early as 2015 \cite{2015piczak,2017audioset,engel2017neural} and most MIR problems were outperformed by DL thenceforth.\footnote{Despite the usefulness of DL in raw audio, e.g. reducing the gap between symbolic and audio classification \cite{sergio_oramas_2017_1417427}, it can be argued that not all MIR problems benefit from it \cite{harsh_verma_2019_3527866}.} 
+Deep learning (DL) in audio signal processing has received much attention in the last four years, and it is still a growing field.\footnote{See \cite{2019Purwins} for a complete review, \cite{Briot2017} for a published book, as well as \cite{herremans2017proceedings} for the first dedicated workshop, and \cite{choi2017tutorial} and the repositories for DL4M \cite{Bayle2017} and the Aalto courses \cite{Koray2018} for introductory tutorials. For the use of DL for symbolic music representations, see \cite{yang2017midinet, Briot2018AnET, rachel_manzelli_2018_1492375, hao_wen_dong_2018_1492377, mittal2021symbolic, MuseGanPapers}}  The Music Information Retrieval (MIR) community incorporated DL via large-scale audio datasets that came as early as 2015 \cite{2015piczak,2017audioset,engel2017neural} and most MIR problems were outperformed by DL thenceforth.\footnote{Despite the usefulness of DL in raw audio, e.g. reducing the gap between symbolic and audio classification \cite{sergio_oramas_2017_1417427}, it can be argued that not all MIR problems benefit from it \cite{harsh_verma_2019_3527866}.} 
 
-There exists some work at the intersection of DL and sonification \cite{Winters2019}, and more work in musical contexts applying DL to audio synthesis. Raw audio synthesis with DL has its origins on speech synthesis, first with the deep convolutional neural network WaveNet \cite{oord2016wavenet}, subsequently with recurrent neural networks (RNN) \cite{mehri2017samplernn, kalchbrenner2018efficient}. Their heavy computational requirements were a disadvantage for both training and performance. Further optimizations with parallel computations emerged \cite{oord2017parallel,lamtharn_hantrakul_2019_3527860,yamamoto2020parallel,song2021improved}, but it was not until Generative Adversarial Networks (GANs) that music benefited from raw audio synthesized with DL \cite{Bollepalli_2017, 2017Kaneko, pascual2017segan, donahue2018adversarial, 2019waveglow, tian2020tfgan, Liu_2020}.\footnote{Multiple variants to the original WaveGAN have appeared in the literature. See for example: conditional GAN \cite{2018Lee}, MelGAN \cite{NEURIPS2019_6804c9bc, jang2021universal}, WGANSing \cite{Chandna_2019}, TFGAN \cite{tian2020tfgan}, DRUMGAN \cite{javier_nistal_2020_4245504}, SyleMelGAN \cite{mustafa2021stylemelgan}, among others. In our previous work Kwgan (\url{https://github.com/fdch/kwgan}), we  extended WaveGan with conditionals to tailor an artistically relevant context.}
+There exists some work at the intersection of DL and sonification \cite{Winters2019, pmlr-v123-herrmann20a}, and more work in musical contexts applying DL to audio synthesis. Raw audio synthesis with DL has its origins in speech synthesis, first with the deep convolutional neural network WaveNet \cite{oord2016wavenet}, subsequently with recurrent neural networks (RNN) \cite{mehri2017samplernn, kalchbrenner2018efficient}. Their heavy computational requirements were a disadvantage for both training and performance. Further optimizations with parallel computations emerged \cite{oord2017parallel,lamtharn_hantrakul_2019_3527860,yamamoto2020parallel,song2021improved}, but it was not until Generative Adversarial Networks (GANs) that music benefited from raw audio synthesized with DL \cite{Bollepalli_2017, 2017Kaneko, pascual2017segan, donahue2018adversarial, 2019waveglow, tian2020tfgan, Liu_2020}.\footnote{Multiple variants to the original WaveGAN have appeared in the literature. See for example: conditional GAN \cite{2018Lee}, MelGAN \cite{NEURIPS2019_6804c9bc, jang2021universal}, WGANSing \cite{Chandna_2019}, TFGAN \cite{tian2020tfgan}, DRUMGAN \cite{javier_nistal_2020_4245504}, SyleMelGAN \cite{mustafa2021stylemelgan}, among others. In our previous work Kwgan (\url{https://github.com/fdch/kwgan}), we  extended WaveGan with conditionals to tailor an artistically relevant context.}
 
-These ground-breaking deep networks were tailored for short-length raw audio files of around one second, with a sample rate accurate enough for speech comprehension (16kHz). Longer or higher samplerate audio files were difficult to address due to high computation demands. A major breakthrough from \cite{oord2016wavenet} and \cite{mehri2017samplernn} comes with the WaveNET-like autoencoder in \cite{engel2017neural}, which created as a new, data-driven synthesis technique for longer length audio files, extending GANs towards musical application. Several hybrid synthesizer models have then been trained \cite{mccarthy2020hooligan}, and the first GAN synthesizers appeared: GANSynth \cite{engel2019gansynth}, trained on the musical instrument sound dataset NSynth \cite{engel2017neural}, and EnvGAN \cite{madhu2021envgan}, trained on the environmental sound generation ESC dataset \cite{2015piczak}. In sum, the evolution of audio synthesis has been fruitful, to the point that Google's Magenta Lab has developed tools and plugins accessible to a wider musical audience \cite{adam_roberts_2019_4285266}.
+These ground-breaking deep networks were tailored for short-length raw audio files of around one second, with a sample rate accurate enough for speech comprehension (16kHz). Longer or higher sample rate audio files were difficult to address due to high computation demands. A major breakthrough comes from the WaveNET-like autoencoder in \cite{engel2017neural}, which was created as a new, data-driven synthesis technique for longer length audio files, extending GANs towards musical application. Several hybrid synthesizer models have then been trained \cite{mccarthy2020hooligan}, and the first GAN synthesizers appeared: GANSynth \cite{engel2019gansynth}, trained on the musical instrument sound dataset NSynth \cite{engel2017neural}, and EnvGAN \cite{madhu2021envgan}, trained on the environmental sound generation ESC dataset \cite{2015piczak}. In sum, the evolution of audio synthesis has been fruitful, to the point that Google's Magenta Lab has developed tools and plugins accessible to a wider musical audience \cite{adam_roberts_2019_4285266}.
 
-Historically, most of DL development appeared first on images and then on sound, namely because of the availability of large-scale datasets, namely, ImageNet \cite{ILSVRC15}. The literature reflects that one inspiration for sonic GANs came from its deep convolutional version DCGAN \cite{radford2015unsupervised}, an adversarial image generator. The problem of translating networks from images to sounds is mentioned in \cite{RothmanBlog} and \cite{2019Purwins}, and an interesting discussion can be read in \cite{Briot2017}. Of interest here is Deep Dream \cite{Mordvintsev2015}, an image generating architecture using layer \textit{activation maximization}\footnote{Activation maximization is a process that returns the inputs that with most confidence would cause a certain output.} of a deep pre-trained model for image classification \cite{szegedy2014going}. 
+Historically, most DL development appeared first on images and then on sound, namely because of the availability of large-scale datasets, namely, ImageNet \cite{ILSVRC15}. The literature reflects that one inspiration for sonic GANs came from its deep convolutional version DCGAN \cite{radford2015unsupervised}, an adversarial image generator. The problem of translating networks from images to sounds is mentioned in \cite{RothmanBlog} and \cite{2019Purwins}, and an interesting discussion can be read in \cite{Briot2017}. Of interest here is Deep Dream \cite{Mordvintsev2015}, an image generating architecture using layer \textit{activation maximization}\footnote{Activation maximization is a process that returns the inputs that with most confidence would cause a certain output.} of a deep pre-trained model for image classification \cite{szegedy2014going}. 
 
-In the present paper, we present DreamSound, a creative adaptation of \cite{Mordvintsev2015} to sound using \textit{timbre style transfer} as well as \textit{activation maximization}. Audio examples can be found in the code repository.\footnote{\url{https://github.com/fdch/dreamsound}} DreamSound advances work on DL and audio synthesis, because it is aimed at sonifying YAMNet layers \cite{YamNet2020}, a novel network previously trained on sound. Further, DreamSound proposes several creative approaches in relation to layer \textit{activation maximization}. In section 2, we present approach in relation to previous work, as well and the limitations we have found. In section 3, we expose our methods and techniques. In section 4, we present our results and briefly discuss them in context. We conclude in section 5 that there is much work to be done on the adaptation of image to audio concepts and in the navigable feature space of deep models.
+In the present paper, we present DreamSound, a creative adaptation of \cite{Mordvintsev2015} to sound using \textit{activation maximization} as well as \textit{timbre style transfer}. Audio examples can be found in the code repository.\footnote{\url{https://github.com/fdch/dreamsound}} DreamSound advances work on DL and audio synthesis, because it is aimed at sonifying YAMNet layers \cite{YamNet2020}, a novel network previously trained on sound. Further, DreamSound proposes several creative approaches in relation to layer \textit{activation maximization}. In section 2, we present our approach as input manipulation and in section 3 as a sonification design. Both sections discuss our implementation and findings in relation to previous work, as well and the limitations we have found. We conclude in section 4 that there is much work to be done in both the adaptation of image to audio algorithms and in the navigable feature space of deep models.
 
-% ----------------------------------------------------------------------------
-\section{Approach}
-% ----------------------------------------------------------------------------
+The research in DreamSound can be understood from two approaches: \textit{input manipulation} and \textit{sonification design}. In turn, these approaches are described with examples of previous work and our implementation is briefly discussed.
 
-The research in DreamSound can be understood at the intersection of three problems: \textit{input manipulation}, \textit{timbre style transfer}, and \textit{sonification design}. In turn, these problems are described with examples of previous work and their solutions in the present work are presented.
+\section{Previous Work}
 
-\subsection{Input Manipulation}
+\subsection{Deep Dream}
+Deep Dream is a project described in a blog post \cite{Mordvintsev2015} and a tutorial \cite{DeepDreamTutorial}. It is geared towards image generation using deep layer \textit{activation maximization}, on a deep network \cite{szegedy2014going} that was trained for image classification with the ImageNet \cite{ILSVRC15} dataset. At the heart of the algorithm, a \textit{gradient ascent} (see \ref{subsec:gradients}) takes place between a \textit{loss} and an input. Loss, in this context, refers to the activations of a layer given some input. The \textit{gradient} is said to ascend because there is incremental manipulation on the input to a next iteration of the same routine. Thus, in time, the input is `steered' in an additive way towards a particular \textit{activation} or class of the model's class space. Briot et al \cite{Briot2017} refer to this type of increments \textit{input manipulation}, since the manipulation occurs at the input, not the output of the architecture. In DreamSound, there is an incremental manipulation of an initially random or specific sound content towards a targeted feature space.
+
+The output of Deep Dream can be understood as a psychedelic image generator that creates the \textit{pareidolia} effect, i.e., the psychological phenomenon in which the mind, in response to a stimulus, perceives similar patterns where none exist \cite{Briot2017}. Essentially, the effect itself directly depends on the activations of a layer within a deep neural network. Thus, the combination of the neural background and the psychedelic aspect gave way for the \textit{dream} in the name, raising further questions about the nature of artificial networks and their otherness that extends the limits of this paper.
 
 
-\subsubsection{Deep Dream}
-Deep Dream is a project described in a blog post \cite{Mordvintsev2015} and a tutorial \cite{DeepDreamTutorial}. It is geared towards image generation using deep layer \textit{activation maximization}, on a deep network \cite{szegedy2014going} that was trained for image classification with the ImageNet \cite{ILSVRC15} dataset. At the heart of the algorithm, a \textit{gradient ascent} (see \ref{subsec:gradients}) takes place between a \textit{loss} and an input. Loss, in this context, refers to the activations of a layer given some input. The \textit{gradient} is said to ascend because there is incremental manipulation on the input to a next (feed-forwad) iteration of the same routine. Thus, in time, the input is `steered' in an additive way towards a particular \textit{activation} or class of the model's class space. Briot et al \cite{Briot2017} refer to this type of increments \textit{input manipulation}, since the manipulation occurs at the input, not the output of the architecture. In DreamSound, there is an incremental manipulation of an initially random or specific sound content towards a targetted feature space.
+\subsection{Deep Dream in Sound}
+There is existing work in the application of the Deep Dream effect \cite{Mordvintsev2015} to sound. In \cite{Balke2015}, Balke and Dittmar use a magnitude spectrogram as the color channels of an image (RGB) and apply \textit{gradient ascent} between the spectrogram and a deep network trained on images. Subsequently, the output images were resynthesized into sound with Griffin and Lim's method.\footnote{For the Griffin and Lim's method, see \cite{Lim1983}} Stamenovic adapted a similar approach in the python library tensorflow \cite{Stamenovic2016}. Finally, an important antecedent that steers away from Deep Dream is Herrmann's recent work in the visualization and sonification of neural networks \cite{pmlr-v123-herrmann20a}. In contrast, Herrmann uses a network previously trained on sound to sonify the features that activate a selected layer yielding impressive results. His research further proves that while lower layers focalize on input localities, higher ones produce more upper-level sonic activity, e.g., rhythmic or harmonic patterns. In this sense, the results obtained from sonifying layer activations are informative on both input and excitations of a layer. 
 
-The output of Deep Dream can be understood as a psychedelic image generator that creates the \textit{pareidolia} effect, i.e., the psychological phenomenon in which the mind, in response to a stimulus, perceives similar patterns where none exist \cite{Briot2017}. Essentially, the effect itself directly depends on the activations of a layer within a deep neural network. Thus, the combination of the neural background and the psychodelic aspect gave way for the \textit{dream} in the name, raising further questions about the nature of artificial networks and their otherness that extend the limits of this paper.
+\begin{figure}[H]
+\begin{minipage}[h]{1\columnwidth}
+  \centerline{\epsfig{figure=img/10-steps-combined-gradients.png,width=1\columnwidth}}
+  \centerline{(a) Gradients (10 steps)}\medskip
+\end{minipage}
+\begin{minipage}[h]{1\columnwidth}
+  \centerline{\epsfig{figure=img/imageSpeech-2-49.png,width=1\columnwidth}}
+  \centerline{(a) ``Speech''}\medskip
+\end{minipage}
+\caption{Spectrograms of some examples. (a) Gradients output during a first after 10 steps. This was done with an initial implementation of DreamSound. (b) The Mel-scaled spectrograms displayed here belong to the 49th iteration, and are in order: (1) the output of DreamSound, (2) the difference between the original sound and the output, (3) the gradients, and (4) the inverse STFT of the phase-reconstructed hard-cut filter. Audio representations for all examples are available in the the code repository.}
+\label{fig:melspecs}
+\end{figure}
 
-\subsubsection{Deep Dream in Sound}
-There is existing work in the application of the Deep Dream effect \cite{Mordvintsev2015} to sound. In \cite{Balke2015}, Balke and Dittmar use a magnitude spectrogram as the color channels of an image (RGB) and apply \textit{gradient ascent} between the spectrogram and a deep network trained on images. Subsequently, the output images were resynthesized into sound with Griffin and Lim's method.\footnote{For the Griffin and Lim's method, see \cite{Lim1983}} Stamenovic adapted a similar approach in the python library tensorflow \cite{Stamenovic2016}. Finally, an important antecedent that steers away from Deep Dream is Herrmann's recent work in the visualization and sonification of neural networks \cite{pmlr-v123-herrmann20a}. In contrast to \cite{Balke2015,Stamenovic2016}, Herrmann uses a network previously trained on sound to sonify the features that activate a selected layer yielding impressive results. His research further proves that while lower layers focalize on input localities, higher ones produce more upper-level sonic activity, e.g., rhythmic or harmonic patterns. In this sense, the results obtained from sonifying layer activations are informative on both input and excitations of a layer. 
+\subsection{Images as Sound}
+The creative potential of these projects lives in their experimental approach towards spectral transformation. In all these cases, the authors perform layer \textit{activation maximization} on a deep network trained on images, taking the gradient between the activations triggered by an image and the input. The input, in this case, is the spectrogram of a sound, either magnitude \cite{Balke2015,Stamenovic2016} or the scaleogram (constant-Q transform) \cite{pmlr-v123-herrmann20a}. Therefore, some issues arise due to the usage of images as sound, namely the sequential aspect of audio. For example, Purwins et al \cite{2019Purwins} note the difference between raw audio (one-dimensional time series signal) and two-dimensional images, and thus claim that audio signals have to be studied sequentially and audio-specific solutions need to be addressed. More specifically, Briot et al \cite{Briot2017} borrow from crystallography the term \textit{anisotropy} to describe one of the central difficulties when transcoding architectures dealing with images to sounds within spectrogram representations. \textit{Anisotropy} means direction dependence. While the spatial correlation between pixels maintains independently of their direction of an image (\textit{isotropy}), this is not the case when dealing with spectrogram images. In a spectrogram representation the horizontal axis represents one thing (e.g. time) and the vertical, another (e.g. frequency). Therefore, significant information is lost when translating algorithms from isotropic to anisotropic contexts. In DreamSound, we implemented an audio-specific solution using raw audio, with variations on an \textit{activation maximization} function that performs filtering to further adjust the output. 
 
-\subsubsection{Images as Sound}
-The creative potential of these approaches is radicated in their experimental approach towards spectral transformation. In all these cases, the authors perform layer \textit{activation maximization} on a deep network trained on images, taking the gradient between the activations triggered by an image and the input. The input, in this case, is the spectrogram of a sound, either magnitude \cite{Balke2015,Stamenovic2016} or the scaleogram (constant-Q transform) \cite{pmlr-v123-herrmann20a}. Therefore, some issues arise due to the usage of images as sound, namely the sequential aspect of audio. For example, in \cite{2019Purwins} Purwins et al note the difference between raw audio (one-dimensional time series signal) and two-dimensional images, and thus claim that audio signals have to be studied sequentially and audio-specific solutions need to be addressed. More specifically, Briot et al claim in \cite{Briot2017}that the \textit{asintropy} of spectrogram representations has been one of the central difficulties when transcoding architectures dealing with images to sounds. That is to say, while the spatial correlation between pixels maintains independently of their direction of an image, this is not the case when dealing with spectrogram images because the horizontal axis represents one thing (e.g. time) and the vertical, another (e.g. frequency). In DreamSound,  we implemented an audio-specific solution using raw audio, with variations on an \textit{activation maximization} function that perform filtering to further adjust the output. 
+\section{Design}
 
-\begin{figure}[h]
+While visualization has been the main channel to understand and perceptualize deep networks \cite{simonyan2014deep}, there exist work on their sonification like Herman's work mentioned above. \textit{Feature inversion} is a technique that has been a proposed solution for understanding these architectures \cite{mahendran2014understanding, dosovitskiy2016inverting}, achieving important advancement in the interpretation of Machine Listening models. In \cite{saumitra_mishra_2018_1492527}, Mishra et al proved that temporal and harmonic structures are preserved in deep convolutional layers. Winters et al \cite{Winters2019} advanced scientific and participant study-based work by sonifying the penultimate layer of a deep convolutional neural network previously trained for image classification. An interesting aspect of their results is the concept of a \textit{sonification layer} that can further reduce the signal-to-noise ratio within a deep network. 
+
+Following the line of these examples, DreamSound can be understood as artistic sonification geared to output sounds using a deep convolutional neural network in an intrinsically coherent way. Three design approaches are mentioned, defined by three creative implementations of an \textit{activation maximization} function. The examples here were made with a single-class python package implementation of DreamSound, available for import via \texttt{pip install dreamsound}.\footnote{\url{https://pypi.org/project/dreamsound}}. The full details of the implementation can be expanded in a more verbose documentation and extend the limits of this paper.
+
+
+
+\subsection{The YAMNet Model}
+\label{subsec:yamnet}
+While there are many available trained models for sound classification, we have chosen a general sound source classifier YAMNet \cite{YamNet2020}. YAMNet is a pretrained deep neural network classifier that uses MobileNets \cite{howard2017mobilenets}, a depthwise-separable convolution architecture with a final activation layer that contains most relevant features for classification. The model was previously trained with 521 audio classes based on the Audio  Set corpus \cite{2017audioset}, which are mostly non-musical, short fragments. 
+
+\subsection{Sonifying the gradients}
+\label{subsec:gradients}
+In most machine learning models, \textit{gradient descent} is the process by which the loss, that is, a function describing the activations of a layer, is minimized with respect to the input. The inverse happens in \textit{gradient ascent}: the loss is maximized so that the input image increasingly excites the layers \cite{DeepDreamTutorial}, arriving at \textit{activation maximization}. The `gradients' are referred to here as the gradient vector between a loss and its inputs in a model. We have found similarities in our sonifications of the gradients and in Herrmann's sonification of the activations \cite{pmlr-v123-herrmann20a}, which sound like filtered noise with dynamic spectral envelopes. Given our choice of the last layer of YAMNet, we find, like Herrmann, that the dynamic aspect of these envelopes resembles the rhythmic elements of the input sound. Visually, the spectrogram of the gradients looks like the inverted image of the spectrogram of the original sound, see Figure \ref{fig:melspecs} (a).
+
+\begin{figure}[H]
 \begin{minipage}[h]{0.5\columnwidth}
   \centerline{\epsfig{figure=img/output_type-0.png,width=1\columnwidth}}
   \centerline{(a) DeepDream Activation}\medskip
@@ -83,164 +115,53 @@ The creative potential of these approaches is radicated in their experimental ap
 \end{minipage}
 \begin{minipage}[h]{0.5\columnwidth}
   \centerline{\epsfig{figure=img/output_type-3.png,width=1\columnwidth}}
-  \centerline{(d) Targetted Filter }\medskip
+  \centerline{(d) Targeted Filter }\medskip
 \end{minipage}
 \caption{Activation Maximization Function types. The first type is directly adapted from DeepDream (a). From (b) to (d), a hard-cut filter is constructed from the magnitude spectra of one of the inputs, so that in (b) the gradients are filtered (convolved) by the original sound, and in (c) the output of this convolution is attenuated and added to the original sound. The difference in (d) comes with the use of another audio used as `target' to construct the filters.}
 \label{fig:maxfun}
 \end{figure}
-\subsection{Sonification Design}
 
-While visualization has been the main channel to understand and perceptualize deep networks \cite{simonyan2014deep}, there exist work on their sonification like Herman's work mentioned above. \textit{Feature inversion} is a technique that has been a proposed solution for understanding these architectures \cite{mahendran2014understanding, dosovitskiy2016inverting}, achieving important advancement in the interpretation of Machine Listening models. In \cite{saumitra_mishra_2018_1492527}, Mishra et al proved that temporal and harmonic structures are preserved in deep convolutional layers. Winters et al \cite{Winters2019} advanced cientific and participant study-based work by sonifiying the penultimate layer of a deep convolutional neural network previously trained for image classification. An interesting aspect of their results is the concept of a \textit{sonification layer} that can further reduce the signal-to-noise ratio within a deep network. 
+\subsection{Deep Dream function}
+Following the Deep Dream function, the gradients obtained between the loss and the input are added with some attenuation to the input and fed back to the loop, as can be seen in Figure \ref{fig:maxfun} (a).  When maximizing the activation of a certain layer, the result is said to point to a direction in the class space of the classifier. In this case, the \textit{activation maximization} is `steered' in the \textit{same} direction of the original sound's class. In order to steer towards a different class of the model, we use a target. Therefore, the sound would sound more like itself or what the model considers its class to be. 
 
-Following the line of these examples, DreamSound can be understood as artistic sonification geared to output sounds using deep convolutional neural network in an intrinsically coherent way. Three design approaches are mentioned, defined by three creative implementations of an \textit{activation maximization} function.
-
-\subsubsection{The YAMNet Model}
-\label{subsec:yamnet}
-While there are many available trained models for sound classification, we have chosen a general sound source classifier YAMNet \cite{YamNet2020}. YAMNet is a pretrained deep neural network classifier that uses MobileNets \cite{howard2017mobilenets}, a depthwise-separable convolution architecture with a final activation layer that contains most relevant features for classification. The model was previously trained with 521 audio classes based on the Audio  Set corpus \cite{2017audioset}, which are mostly non-musical, short fragments. 
-
-\subsubsection{Sonifying the gradients}
-\label{subsec:gradients}
-In most machine learning models, \textit{gradient descent} is the process by which the loss, that is, a function describing the activations of a layer, is minimized with respect to the input. The inverse happens in \textit{gradient ascent}: the loss is maximized so that the input image increasingly excites the layers \cite{DeepDreamTutorial}, arriving at \textit{activation maximization}. The `gradients' are refered to here as the gradient vector between a loss and its inputs in a model. We have found similatiries in our sonifications of the gradients and in Herrmann's sonification of the activations \cite{pmlr-v123-herrmann20a}, which sound like filtered noise with dynamic spectral envelopes. Further, given our choice of the last layer of YAMNet, we find like Herrmann the dynamic aspect of these envelopes ressembles the rhythmic elements of the input sound. Visually, the spectrogram of the gradients look like the inverted image of the spectrogram of the original sound, see Figure \ref{fig:melspecs}.
+However, while this function gives interesting results in the image domain, in the sound domain the additive aspect takes precedence. That is to say, the original sound and the gradients (Figure \ref{fig:melspecs} b.3) are perceived as two superimposed independent layers. We recommend listening to the audio files for a better idea.
 
 
-\subsubsection{Deep Dream approach}
-Following the Deep Dream approach, the gradients obtained between the loss and the input are added with some attenuation to the input and fed back to the loop, as can be seen in Figure \ref{fig:maxfun} (a). When maximizing the activation of a certain layer, the result is said to point to a direction in the class space of the classifier. In this case, the \textit{activation maximization} is `steered' in the \textit{same} direction of the original sound's class. In order to steer towards a different class of the model, we use a target. Therefore, the sound would sound more like itself or what the model considers its class to be. 
+\subsection{Filter-based function}
 
-However, while this function gives interesing results in the image domain, in the sound domain the additive aspect takes presedence. That is to say, the original sound and the gradients are perceived as two superimposed independent layers.
-
-\subsubsection{Filter-based approach}
-Therefore, a hard-cut filter was designed to remove magnitudes that fall below a defined threshold and to let the remaining magnitudes through. Thus, by constructing this filter with the gradients and applying it to the original sound, the regions of the gradients where energy is present will let the original sound pass to the following iteration. In other words, the original sound is convolved with the gradients, resulting in Figure \ref{fig:maxfun} (b). Further, the order of the inputs for the convolution can be easily flipped to construct the filter with the original sound and convolve the gradients with it. We have proposed three extensions to this filter-based design. Figure \ref{fig:maxfun} (c) extends the previous convolution with the additive element of (a) being performed between the output of the filter and the original sound, which only then is fed back into the loop. 
-
-
-\subsubsection{Target-based approach}
-In Figure \ref{fig:maxfun} (d), however, the filter is constructed with a new sound that we call `target'. This technique is a creative interpretation of \textit{style transfer}, that was originally designed for images in \cite{GatysEB15a}. Gatys et al used a deep network to obtain content information (i.e., features) from one image and style (or feature correlations) from another. The notion of style represented then the style of an artists. In the case of audio transfer, style does not refer to musical style, but to timbre. There are other examples dealing with \textit{timbre style transfer} \cite{Foote2016, Ulyanov2016, Wyse2017}, which are dealt with in \cite{Briot2017}, but in general, a gradient-based approach is used on an input and a target in order to synthesize a third, hybrid sound. In \cite{verma2018neural}, Verma and Smith treat audio synthesis as a \textit{style transfer} problem, and they use back-propagation to optimize the sound to conform to filter-output. With our target-based approach, the gradients of the layer are convolved to the filter constructed by the target sound and then fed back into the loop. 
-
-\begin{figure}[h]
-\begin{minipage}[h]{1\columnwidth}
-  \centerline{\epsfig{figure=img/10-steps-combined-gradients.png,width=1\columnwidth}}
-  \centerline{(a) Gradients (10 steps)}\medskip
-\end{minipage}
-\begin{minipage}[h]{1\columnwidth}
-  \centerline{\epsfig{figure=img/imageSpeech-2-49.png,width=1\columnwidth}}
-  \centerline{(a) ``Speech''}\medskip
-\end{minipage}
-\caption{Mel-scaled spectrograms of some examples. (a) Gradients output during a first after 10 steps. (b) The outputs displayed here belong to the 49th iteration, and are in order: (1) the output of DreamSound, (2) the difference between the original sound and the output, (3) the gradients, and (4) the inverse STFT of the phase-reconstructed hard-cut filter. Sound renderings for all of these examples are available in the website.}
-\label{fig:melspecs}
-\end{figure}
-% ----------------------------------------------------------------------------
-% ----------------------------------------------------------------------------
-% ----------------------------------------------------------------------------
-% ----------------------------------------------------------------------------
-
-
-% -----------------------------------------------------------------------------
-\section{Results}
-% -----------------------------------------------------------------------------
-
-In what follows, we describe some of the audio examples that accompany this paper. These examples were made with a single-class python package implementation of DreamSound, available for import via \texttt{pip install dreamsound}.\footnote{\url{https://pypi.org/project/dreamsound}}. The details of the implementation can be expanded in a more verbose documentation and extend the limits of this paper. 
-
-
-
-\begin{lstlisting}[language=Python][caption=Filter-based approach]
-def combine_2(self, x, y):
-    
-    X = stft(x)
-    Y = stft(y)
-    X_mag, X_pha = magphase(X)
-    Y_mag = tf.math.abs(Y)
-
-    # normalize
-    Y_mag_norm = normalize(Y_mag)
-    # offset
-    Y_mag_offset = Y_mag_norm - threshold
-    # hard cut based on sign
-    hard_cut = (tf.math.sign(Y_mag_offset) + 1) * 0.5
-    # apply the hard-cut filter to the 
-    # magnitude of the gradient
-    X_mag_cut = hard_cut * X_mag
-    # apply the phase of the original sound to the filtered gradient mag
-    X_mag_rephased = complex_mul(X_pha, X_mag_cut)
-    # compute the inverse stft on the cut and rephased magnitude
-    x_new = istft(X_mag_rephased)
-    # resize either x_new or y to min length so that we can add them
-    x_new, y = hard_resize(x_new, y)
-    # add a small amount of the sound to the new (real) gradient 
-    output = tf.math.add(x_new * step_size, y)
-    # inverse fft of the hard cut
-    hard_cut_real = istft(complex_mul(X_pha,hard_cut))
-
-    return output, hard_cut_real
+\begin{lstlisting}[caption={Filter-based function with inputs x and y}]
+X_mag, X_pha = MAGPHASE(STFT(x))
+Y_mag = ABS(STFT(y))
+Y_mag_offset = NORMALIZE(Y_mag) - threshold
+# hard cut based on sign
+hard_cut = (SIGN(Y_mag_offset)+1) / 2
+# apply the hard-cut filter
+X_mag_cut = hard_cut * X_mag
+# rephase
+X_mag_rephased = COMPLEX_MUL(X_pha, X_mag_cut)
+# inverse stft
+x_new = ISTFT(X_mag_rephased)
+# add
+output = x_new * step_size + y
+return output
 \end{lstlisting}
+\label{function}
 
+Therefore, a hard-cut filter (Figure \ref{fig:melspecs} b.3) was designed to remove magnitudes that fall below a defined threshold and to let the remaining magnitudes through. Thus, by constructing this filter with the gradients and applying it to the original sound, the regions of the gradients where energy is present will let the original sound pass to the following iteration. In other words, the original sound is convolved with the gradients, and the order of the inputs for the convolution can be easily flipped to construct the filter with the original sound and convolve the gradients with it \ref{fig:maxfun} (b). 
+
+The use of this function yielded more interesting sonic outcomes than the Deep Dream function, as can be seen in Figure \ref{fig:melspecs} (b.1). The original sound and its gradients at that step seem to merge better than with the Deep Dream function. The difference between the original sound and the output can be seen in Figure \ref{fig:melspecs} (b.2), and it evidences the elements that were removed from the original sound. Better results are achieved by an extension to this design (see \ref{function}). The additive element of (a) occurs between the output of the filter and the original sound, which only then is fed back into the loop, shown in Figure \ref{fig:maxfun} (c). The audio examples using this function seem to be more expressive.
+
+\subsection{Target-based function}
+In Figure \ref{fig:maxfun} (d), however, the filter is constructed with a new sound that we call `target'. This technique is a creative interpretation of \textit{style transfer} that was originally designed for images in \cite{GatysEB15a}. Gatys et al used a deep network to obtain content information (i.e., features) from one image and style (or feature correlations) from another. The notion of style represented then the style of an artist. In the case of audio transfer, style does not refer to musical style, but to timbre. There are other examples dealing with \textit{timbre style transfer} \cite{Foote2016, Ulyanov2016, Wyse2017}, which are dealt with in \cite{Briot2017}, but in general, a gradient is used on an input and a target in order to synthesize a third, hybrid sound. In \cite{verma2018neural}, Verma and Smith treat audio synthesis as a \textit{style transfer} problem, and they use back-propagation to optimize the sound to conform to filter-output. With our target-based function, the gradients of the layer are convolved to the filter constructed by the target sound and then fed back into the loop. 
 
 % -------------------------------------------------------------------------
 \section{Conclusions and Future Work}
 % -------------------------------------------------------------------------
-
  
-We have presented a prototype adaptation of the Deep Dream project into an audio-based musical context using tensorflow and YAMNEt. Our project began as a rapid and remote collaborative work within the Google Colab environment using Python, namely with tensorflow, numpy, and librosa, and it developed into a python package. We have contributed some research at the intersection of deep learning and audio-based musical tasks, and presented our results. The most interesting results occur when recursively applying an FFT filter built from the gradients obtained from an input soundfile and its loss. While our approach is tethered to a general sound database and a specific model, the techniques of gradient ascent for loss maximization of layer activations, and the FFT filter exposed in this paper are be portable enought for importing into other existing classification models for audio, such as for genre or musical instrument classification. Further work includes plans to extend this project towards the creation of a database of dreamed sounds, with the capability to change models and other fft filtering techniques, as well as other modifications using GANs. An interesting use of this research is to further evaluate the classification capacity of YAMNet.
+We have presented a prototype adaptation of the Deep Dream project into sound using Tensorflow 2 and YAMNet. Our project began as a rapid and remote collaborative work within the Google Colab environment, and it developed into a python package. We have contributed some research at the intersection of deep learning and audio, and presented our results. The most interesting results occur with a filter-based \textit{activation maximization} function built from the gradients obtained from an input and its loss. Future work consists of (1) adapting DreamSound to intake different length YAMNet layers, as well as other models. (2) Further explorations with an adversarial model such as Kwgan is expected.\footnote{\url{https://github.com/fdch/kwgan}} An interesting use of DreamSound is to further evaluate the classification capacity of YAMNet. Therefore, we intend to (3) use it as a data augmentation tool for this and other models. Finally, since DreamSound is a sound generator, we intend to (4) play it as a musical instrument in an artistic work.
 
 \bibliographystyle{IEEEtran}
 \bibliography{dreamsound.bib}
 
 \end{sloppy}
 \end{document}
-
-
-
-
-% Some examples within the last four years are: 
-% genre classification \cite{sergio_oramas_2017_1417427}, 
-% singing voice separation \cite{andreas_jansson_2017_1414934}, 
-% instrument activity detection \cite{siddharth_gururani_2018_1492479}, 
-% instrument classification \cite{juan_s_gomez_2018_1492481}, 
-% downbeat tracking \cite{magdalena_fuentes_2018_1492355}, 
-% optical music recognition \cite{lukas_tuggener_2018_1492401}, 
-% mood detection \cite{remi_delbouys_2018_1492427}, 
-% tempo estimation \cite{hadrien_foroughmand_2019_3527890},
-% key classification \cite{fu_zih_sing_2019_3527960}, 
-% beat-tracking \cite{akira_maezawa_2017_1415520,magdalena_fuentes_2019_3527792}, 
-% sequence classification \cite{sathwik_tejaswi_madhusudhan_2019_3527862}, 
-% music analogy \cite{ruihan_yang_2019_3527880}, 
-% drum transcription \cite{keunwoo_choi_2019_3527774}, 
-% mood classification \cite{filip_korzeniowski_2020_4245488}, 
-% source separation \cite{petermann2020deep}, 
-% unison singing \cite{pritish_chandna_2020_4245502},
-
-% voice separation in symbolic music \cite{reinier_de_valk_2018_1492403}, 
-
-
-
-
-
-
-
-
-
-
-% % Below is an example of how to insert images. Delete the ``\vspace'' line,
-% % uncomment the preceding line ``\centerline...'' and replace ``imageX.ps''
-% % with a suitable PostScript file name.
-% % -------------------------------------------------------------------------
-% \begin{figure}[h]
-% \begin{minipage}[h]{1.0\columnwidth}
-%   \centering
-%   \centerline{\epsfig{figure=pics/fig1a-cropped.png,width=0.8\columnwidth}}
-%   \centerline{(a) Result 1}\medskip
-% \end{minipage}
-% \begin{minipage}[h]{0.48\columnwidth}
-%   \centering
-%   \centerline{\epsfig{figure=pics/fig1b-cropped.pdf,height=4.0cm}}
-%   \centerline{(b) Result 2}\medskip
-% \end{minipage}
-% \hfill
-% \begin{minipage}[h]{0.48\columnwidth}
-%   \centering
-%   \centerline{\epsfig{figure=pics/fig1c-cropped.pdf,height=4.0cm}}
-%   \centerline{(c) Result 3}\medskip
-% \end{minipage}
-% \caption{Example of placing a figure with experimental results. Please use detailed figure captions that explain the figure well. The more modern way to include figures is to use pdflatex instead of latex and then to use 
-% the \textbackslash\texttt{includegraphics} command with pdf files.}
-% \label{fig:results}
-% %
-% \end{figure}

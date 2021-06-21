@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.13)  20 JUN 2021 23:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.13)  21 JUN 2021 13:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -171,6 +171,8 @@ Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 )
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/hyperref/hyperref-langpatche
 s.def
@@ -185,6 +187,8 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
 )
 Package hyperref Info: Hyper figures OFF on input line 4192.
 Package hyperref Info: Link nesting OFF on input line 4197.
@@ -254,422 +258,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 Package: inputenc 2020/08/01 v1.3d Input encoding file
 \inpenc@prehook=\toks21
 \inpenc@posthook=\toks22
-
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2019/11/14 v1.2k UTF-8 support for inputenc
-Now handling font encoding OML ...
-... no UTF-8 mapping file for font encoding OML
-Now handling font encoding OMS ...
-... processing UTF-8 mapping file for font encoding OMS
-
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/base/omsenc.dfu
-File: omsenc.dfu 2019/11/14 v1.2k UTF-8 support for inputenc
-   defining Unicode char U+00A7 (decimal 167)
-   defining Unicode char U+00B6 (decimal 182)
-   defining Unicode char U+00B7 (decimal 183)
-   defining Unicode char U+2020 (decimal 8224)
-   defining Unicode char U+2021 (decimal 8225)
-   defining Unicode char U+2022 (decimal 8226)
 )
-Now handling font encoding OT1 ...
-... processing UTF-8 mapping file for font encoding OT1
-
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/base/ot1enc.dfu
-File: ot1enc.dfu 2019/11/14 v1.2k UTF-8 support for inputenc
-   defining Unicode char U+00A0 (decimal 160)
-   defining Unicode char U+00A1 (decimal 161)
-   defining Unicode char U+00A3 (decimal 163)
-   defining Unicode char U+00AD (decimal 173)
-   defining Unicode char U+00B8 (decimal 184)
-   defining Unicode char U+00BF (decimal 191)
-   defining Unicode char U+00C5 (decimal 197)
-   defining Unicode char U+00C6 (decimal 198)
-   defining Unicode char U+00D8 (decimal 216)
-   defining Unicode char U+00DF (decimal 223)
-   defining Unicode char U+00E6 (decimal 230)
-   defining Unicode char U+00EC (decimal 236)
-   defining Unicode char U+00ED (decimal 237)
-   defining Unicode char U+00EE (decimal 238)
-   defining Unicode char U+00EF (decimal 239)
-   defining Unicode char U+00F8 (decimal 248)
-   defining Unicode char U+0131 (decimal 305)
-   defining Unicode char U+0141 (decimal 321)
-   defining Unicode char U+0142 (decimal 322)
-   defining Unicode char U+0152 (decimal 338)
-   defining Unicode char U+0153 (decimal 339)
-   defining Unicode char U+0174 (decimal 372)
-   defining Unicode char U+0175 (decimal 373)
-   defining Unicode char U+0176 (decimal 374)
-   defining Unicode char U+0177 (decimal 375)
-   defining Unicode char U+0218 (decimal 536)
-   defining Unicode char U+0219 (decimal 537)
-   defining Unicode char U+021A (decimal 538)
-   defining Unicode char U+021B (decimal 539)
-   defining Unicode char U+0237 (decimal 567)
-   defining Unicode char U+2013 (decimal 8211)
-   defining Unicode char U+2014 (decimal 8212)
-   defining Unicode char U+2018 (decimal 8216)
-   defining Unicode char U+2019 (decimal 8217)
-   defining Unicode char U+201C (decimal 8220)
-   defining Unicode char U+201D (decimal 8221)
-   defining Unicode char U+FB00 (decimal 64256)
-   defining Unicode char U+FB01 (decimal 64257)
-   defining Unicode char U+FB02 (decimal 64258)
-   defining Unicode char U+FB03 (decimal 64259)
-   defining Unicode char U+FB04 (decimal 64260)
-   defining Unicode char U+FB05 (decimal 64261)
-   defining Unicode char U+FB06 (decimal 64262)
-)
-Now handling font encoding T1 ...
-... processing UTF-8 mapping file for font encoding T1
-
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/base/t1enc.dfu
-File: t1enc.dfu 2019/11/14 v1.2k UTF-8 support for inputenc
-   defining Unicode char U+00A0 (decimal 160)
-   defining Unicode char U+00A1 (decimal 161)
-   defining Unicode char U+00A3 (decimal 163)
-   defining Unicode char U+00AB (decimal 171)
-   defining Unicode char U+00AD (decimal 173)
-   defining Unicode char U+00BB (decimal 187)
-   defining Unicode char U+00BF (decimal 191)
-   defining Unicode char U+00C0 (decimal 192)
-   defining Unicode char U+00C1 (decimal 193)
-   defining Unicode char U+00C2 (decimal 194)
-   defining Unicode char U+00C3 (decimal 195)
-   defining Unicode char U+00C4 (decimal 196)
-   defining Unicode char U+00C5 (decimal 197)
-   defining Unicode char U+00C6 (decimal 198)
-   defining Unicode char U+00C7 (decimal 199)
-   defining Unicode char U+00C8 (decimal 200)
-   defining Unicode char U+00C9 (decimal 201)
-   defining Unicode char U+00CA (decimal 202)
-   defining Unicode char U+00CB (decimal 203)
-   defining Unicode char U+00CC (decimal 204)
-   defining Unicode char U+00CD (decimal 205)
-   defining Unicode char U+00CE (decimal 206)
-   defining Unicode char U+00CF (decimal 207)
-   defining Unicode char U+00D0 (decimal 208)
-   defining Unicode char U+00D1 (decimal 209)
-   defining Unicode char U+00D2 (decimal 210)
-   defining Unicode char U+00D3 (decimal 211)
-   defining Unicode char U+00D4 (decimal 212)
-   defining Unicode char U+00D5 (decimal 213)
-   defining Unicode char U+00D6 (decimal 214)
-   defining Unicode char U+00D8 (decimal 216)
-   defining Unicode char U+00D9 (decimal 217)
-   defining Unicode char U+00DA (decimal 218)
-   defining Unicode char U+00DB (decimal 219)
-   defining Unicode char U+00DC (decimal 220)
-   defining Unicode char U+00DD (decimal 221)
-   defining Unicode char U+00DE (decimal 222)
-   defining Unicode char U+00DF (decimal 223)
-   defining Unicode char U+00E0 (decimal 224)
-   defining Unicode char U+00E1 (decimal 225)
-   defining Unicode char U+00E2 (decimal 226)
-   defining Unicode char U+00E3 (decimal 227)
-   defining Unicode char U+00E4 (decimal 228)
-   defining Unicode char U+00E5 (decimal 229)
-   defining Unicode char U+00E6 (decimal 230)
-   defining Unicode char U+00E7 (decimal 231)
-   defining Unicode char U+00E8 (decimal 232)
-   defining Unicode char U+00E9 (decimal 233)
-   defining Unicode char U+00EA (decimal 234)
-   defining Unicode char U+00EB (decimal 235)
-   defining Unicode char U+00EC (decimal 236)
-   defining Unicode char U+00ED (decimal 237)
-   defining Unicode char U+00EE (decimal 238)
-   defining Unicode char U+00EF (decimal 239)
-   defining Unicode char U+00F0 (decimal 240)
-   defining Unicode char U+00F1 (decimal 241)
-   defining Unicode char U+00F2 (decimal 242)
-   defining Unicode char U+00F3 (decimal 243)
-   defining Unicode char U+00F4 (decimal 244)
-   defining Unicode char U+00F5 (decimal 245)
-   defining Unicode char U+00F6 (decimal 246)
-   defining Unicode char U+00F8 (decimal 248)
-   defining Unicode char U+00F9 (decimal 249)
-   defining Unicode char U+00FA (decimal 250)
-   defining Unicode char U+00FB (decimal 251)
-   defining Unicode char U+00FC (decimal 252)
-   defining Unicode char U+00FD (decimal 253)
-   defining Unicode char U+00FE (decimal 254)
-   defining Unicode char U+00FF (decimal 255)
-   defining Unicode char U+0100 (decimal 256)
-   defining Unicode char U+0101 (decimal 257)
-   defining Unicode char U+0102 (decimal 258)
-   defining Unicode char U+0103 (decimal 259)
-   defining Unicode char U+0104 (decimal 260)
-   defining Unicode char U+0105 (decimal 261)
-   defining Unicode char U+0106 (decimal 262)
-   defining Unicode char U+0107 (decimal 263)
-   defining Unicode char U+0108 (decimal 264)
-   defining Unicode char U+0109 (decimal 265)
-   defining Unicode char U+010A (decimal 266)
-   defining Unicode char U+010B (decimal 267)
-   defining Unicode char U+010C (decimal 268)
-   defining Unicode char U+010D (decimal 269)
-   defining Unicode char U+010E (decimal 270)
-   defining Unicode char U+010F (decimal 271)
-   defining Unicode char U+0110 (decimal 272)
-   defining Unicode char U+0111 (decimal 273)
-   defining Unicode char U+0112 (decimal 274)
-   defining Unicode char U+0113 (decimal 275)
-   defining Unicode char U+0114 (decimal 276)
-   defining Unicode char U+0115 (decimal 277)
-   defining Unicode char U+0116 (decimal 278)
-   defining Unicode char U+0117 (decimal 279)
-   defining Unicode char U+0118 (decimal 280)
-   defining Unicode char U+0119 (decimal 281)
-   defining Unicode char U+011A (decimal 282)
-   defining Unicode char U+011B (decimal 283)
-   defining Unicode char U+011C (decimal 284)
-   defining Unicode char U+011D (decimal 285)
-   defining Unicode char U+011E (decimal 286)
-   defining Unicode char U+011F (decimal 287)
-   defining Unicode char U+0120 (decimal 288)
-   defining Unicode char U+0121 (decimal 289)
-   defining Unicode char U+0122 (decimal 290)
-   defining Unicode char U+0123 (decimal 291)
-   defining Unicode char U+0124 (decimal 292)
-   defining Unicode char U+0125 (decimal 293)
-   defining Unicode char U+0128 (decimal 296)
-   defining Unicode char U+0129 (decimal 297)
-   defining Unicode char U+012A (decimal 298)
-   defining Unicode char U+012B (decimal 299)
-   defining Unicode char U+012C (decimal 300)
-   defining Unicode char U+012D (decimal 301)
-   defining Unicode char U+012E (decimal 302)
-   defining Unicode char U+012F (decimal 303)
-   defining Unicode char U+0130 (decimal 304)
-   defining Unicode char U+0131 (decimal 305)
-   defining Unicode char U+0132 (decimal 306)
-   defining Unicode char U+0133 (decimal 307)
-   defining Unicode char U+0134 (decimal 308)
-   defining Unicode char U+0135 (decimal 309)
-   defining Unicode char U+0136 (decimal 310)
-   defining Unicode char U+0137 (decimal 311)
-   defining Unicode char U+0139 (decimal 313)
-   defining Unicode char U+013A (decimal 314)
-   defining Unicode char U+013B (decimal 315)
-   defining Unicode char U+013C (decimal 316)
-   defining Unicode char U+013D (decimal 317)
-   defining Unicode char U+013E (decimal 318)
-   defining Unicode char U+0141 (decimal 321)
-   defining Unicode char U+0142 (decimal 322)
-   defining Unicode char U+0143 (decimal 323)
-   defining Unicode char U+0144 (decimal 324)
-   defining Unicode char U+0145 (decimal 325)
-   defining Unicode char U+0146 (decimal 326)
-   defining Unicode char U+0147 (decimal 327)
-   defining Unicode char U+0148 (decimal 328)
-   defining Unicode char U+014A (decimal 330)
-   defining Unicode char U+014B (decimal 331)
-   defining Unicode char U+014C (decimal 332)
-   defining Unicode char U+014D (decimal 333)
-   defining Unicode char U+014E (decimal 334)
-   defining Unicode char U+014F (decimal 335)
-   defining Unicode char U+0150 (decimal 336)
-   defining Unicode char U+0151 (decimal 337)
-   defining Unicode char U+0152 (decimal 338)
-   defining Unicode char U+0153 (decimal 339)
-   defining Unicode char U+0154 (decimal 340)
-   defining Unicode char U+0155 (decimal 341)
-   defining Unicode char U+0156 (decimal 342)
-   defining Unicode char U+0157 (decimal 343)
-   defining Unicode char U+0158 (decimal 344)
-   defining Unicode char U+0159 (decimal 345)
-   defining Unicode char U+015A (decimal 346)
-   defining Unicode char U+015B (decimal 347)
-   defining Unicode char U+015C (decimal 348)
-   defining Unicode char U+015D (decimal 349)
-   defining Unicode char U+015E (decimal 350)
-   defining Unicode char U+015F (decimal 351)
-   defining Unicode char U+0160 (decimal 352)
-   defining Unicode char U+0161 (decimal 353)
-   defining Unicode char U+0162 (decimal 354)
-   defining Unicode char U+0163 (decimal 355)
-   defining Unicode char U+0164 (decimal 356)
-   defining Unicode char U+0165 (decimal 357)
-   defining Unicode char U+0168 (decimal 360)
-   defining Unicode char U+0169 (decimal 361)
-   defining Unicode char U+016A (decimal 362)
-   defining Unicode char U+016B (decimal 363)
-   defining Unicode char U+016C (decimal 364)
-   defining Unicode char U+016D (decimal 365)
-   defining Unicode char U+016E (decimal 366)
-   defining Unicode char U+016F (decimal 367)
-   defining Unicode char U+0170 (decimal 368)
-   defining Unicode char U+0171 (decimal 369)
-   defining Unicode char U+0172 (decimal 370)
-   defining Unicode char U+0173 (decimal 371)
-   defining Unicode char U+0174 (decimal 372)
-   defining Unicode char U+0175 (decimal 373)
-   defining Unicode char U+0176 (decimal 374)
-   defining Unicode char U+0177 (decimal 375)
-   defining Unicode char U+0178 (decimal 376)
-   defining Unicode char U+0179 (decimal 377)
-   defining Unicode char U+017A (decimal 378)
-   defining Unicode char U+017B (decimal 379)
-   defining Unicode char U+017C (decimal 380)
-   defining Unicode char U+017D (decimal 381)
-   defining Unicode char U+017E (decimal 382)
-   defining Unicode char U+01CD (decimal 461)
-   defining Unicode char U+01CE (decimal 462)
-   defining Unicode char U+01CF (decimal 463)
-   defining Unicode char U+01D0 (decimal 464)
-   defining Unicode char U+01D1 (decimal 465)
-   defining Unicode char U+01D2 (decimal 466)
-   defining Unicode char U+01D3 (decimal 467)
-   defining Unicode char U+01D4 (decimal 468)
-   defining Unicode char U+01E2 (decimal 482)
-   defining Unicode char U+01E3 (decimal 483)
-   defining Unicode char U+01E6 (decimal 486)
-   defining Unicode char U+01E7 (decimal 487)
-   defining Unicode char U+01E8 (decimal 488)
-   defining Unicode char U+01E9 (decimal 489)
-   defining Unicode char U+01EA (decimal 490)
-   defining Unicode char U+01EB (decimal 491)
-   defining Unicode char U+01F0 (decimal 496)
-   defining Unicode char U+01F4 (decimal 500)
-   defining Unicode char U+01F5 (decimal 501)
-   defining Unicode char U+0218 (decimal 536)
-   defining Unicode char U+0219 (decimal 537)
-   defining Unicode char U+021A (decimal 538)
-   defining Unicode char U+021B (decimal 539)
-   defining Unicode char U+0232 (decimal 562)
-   defining Unicode char U+0233 (decimal 563)
-   defining Unicode char U+0237 (decimal 567)
-   defining Unicode char U+02D9 (decimal 729)
-   defining Unicode char U+02DB (decimal 731)
-   defining Unicode char U+1E02 (decimal 7682)
-   defining Unicode char U+1E03 (decimal 7683)
-   defining Unicode char U+1E9E (decimal 7838)
-   defining Unicode char U+200C (decimal 8204)
-   defining Unicode char U+2010 (decimal 8208)
-   defining Unicode char U+2011 (decimal 8209)
-   defining Unicode char U+2012 (decimal 8210)
-   defining Unicode char U+2013 (decimal 8211)
-   defining Unicode char U+2014 (decimal 8212)
-   defining Unicode char U+2015 (decimal 8213)
-   defining Unicode char U+2018 (decimal 8216)
-   defining Unicode char U+2019 (decimal 8217)
-   defining Unicode char U+201A (decimal 8218)
-   defining Unicode char U+201C (decimal 8220)
-   defining Unicode char U+201D (decimal 8221)
-   defining Unicode char U+201E (decimal 8222)
-   defining Unicode char U+2030 (decimal 8240)
-   defining Unicode char U+2031 (decimal 8241)
-   defining Unicode char U+2039 (decimal 8249)
-   defining Unicode char U+203A (decimal 8250)
-   defining Unicode char U+2423 (decimal 9251)
-   defining Unicode char U+1E20 (decimal 7712)
-   defining Unicode char U+1E21 (decimal 7713)
-   defining Unicode char U+FB00 (decimal 64256)
-   defining Unicode char U+FB01 (decimal 64257)
-   defining Unicode char U+FB02 (decimal 64258)
-   defining Unicode char U+FB03 (decimal 64259)
-   defining Unicode char U+FB04 (decimal 64260)
-   defining Unicode char U+FB05 (decimal 64261)
-   defining Unicode char U+FB06 (decimal 64262)
-)
-Now handling font encoding TS1 ...
-... processing UTF-8 mapping file for font encoding TS1
-
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/base/ts1enc.dfu
-File: ts1enc.dfu 2019/11/14 v1.2k UTF-8 support for inputenc
-   defining Unicode char U+00A2 (decimal 162)
-   defining Unicode char U+00A3 (decimal 163)
-   defining Unicode char U+00A4 (decimal 164)
-   defining Unicode char U+00A5 (decimal 165)
-   defining Unicode char U+00A6 (decimal 166)
-   defining Unicode char U+00A7 (decimal 167)
-   defining Unicode char U+00A8 (decimal 168)
-   defining Unicode char U+00A9 (decimal 169)
-   defining Unicode char U+00AA (decimal 170)
-   defining Unicode char U+00AC (decimal 172)
-   defining Unicode char U+00AE (decimal 174)
-   defining Unicode char U+00AF (decimal 175)
-   defining Unicode char U+00B0 (decimal 176)
-   defining Unicode char U+00B1 (decimal 177)
-   defining Unicode char U+00B2 (decimal 178)
-   defining Unicode char U+00B3 (decimal 179)
-   defining Unicode char U+00B4 (decimal 180)
-   defining Unicode char U+00B5 (decimal 181)
-   defining Unicode char U+00B6 (decimal 182)
-   defining Unicode char U+00B7 (decimal 183)
-   defining Unicode char U+00B9 (decimal 185)
-   defining Unicode char U+00BA (decimal 186)
-   defining Unicode char U+00BC (decimal 188)
-   defining Unicode char U+00BD (decimal 189)
-   defining Unicode char U+00BE (decimal 190)
-   defining Unicode char U+00D7 (decimal 215)
-   defining Unicode char U+00F7 (decimal 247)
-   defining Unicode char U+0192 (decimal 402)
-   defining Unicode char U+02C7 (decimal 711)
-   defining Unicode char U+02D8 (decimal 728)
-   defining Unicode char U+02DD (decimal 733)
-   defining Unicode char U+0E3F (decimal 3647)
-   defining Unicode char U+2016 (decimal 8214)
-   defining Unicode char U+2020 (decimal 8224)
-   defining Unicode char U+2021 (decimal 8225)
-   defining Unicode char U+2022 (decimal 8226)
-   defining Unicode char U+2030 (decimal 8240)
-   defining Unicode char U+2031 (decimal 8241)
-   defining Unicode char U+203B (decimal 8251)
-   defining Unicode char U+203D (decimal 8253)
-   defining Unicode char U+2044 (decimal 8260)
-   defining Unicode char U+204E (decimal 8270)
-   defining Unicode char U+2052 (decimal 8274)
-   defining Unicode char U+20A1 (decimal 8353)
-   defining Unicode char U+20A4 (decimal 8356)
-   defining Unicode char U+20A6 (decimal 8358)
-   defining Unicode char U+20A9 (decimal 8361)
-   defining Unicode char U+20AB (decimal 8363)
-   defining Unicode char U+20AC (decimal 8364)
-   defining Unicode char U+20B1 (decimal 8369)
-   defining Unicode char U+2103 (decimal 8451)
-   defining Unicode char U+2116 (decimal 8470)
-   defining Unicode char U+2117 (decimal 8471)
-   defining Unicode char U+211E (decimal 8478)
-   defining Unicode char U+2120 (decimal 8480)
-   defining Unicode char U+2122 (decimal 8482)
-   defining Unicode char U+2126 (decimal 8486)
-   defining Unicode char U+2127 (decimal 8487)
-   defining Unicode char U+212E (decimal 8494)
-   defining Unicode char U+2190 (decimal 8592)
-   defining Unicode char U+2191 (decimal 8593)
-   defining Unicode char U+2192 (decimal 8594)
-   defining Unicode char U+2193 (decimal 8595)
-   defining Unicode char U+2329 (decimal 9001)
-   defining Unicode char U+232A (decimal 9002)
-   defining Unicode char U+2422 (decimal 9250)
-   defining Unicode char U+25E6 (decimal 9702)
-   defining Unicode char U+25EF (decimal 9711)
-   defining Unicode char U+266A (decimal 9834)
-   defining Unicode char U+27E8 (decimal 10216)
-   defining Unicode char U+27E9 (decimal 10217)
-   defining Unicode char U+FEFF (decimal 65279)
-)
-Now handling font encoding OMX ...
-... no UTF-8 mapping file for font encoding OMX
-Now handling font encoding U ...
-... no UTF-8 mapping file for font encoding U
-Now handling font encoding PD1 ...
-... no UTF-8 mapping file for font encoding PD1
-Now handling font encoding PU ...
-... no UTF-8 mapping file for font encoding PU
-   defining Unicode char U+00A9 (decimal 169)
-   defining Unicode char U+00AA (decimal 170)
-   defining Unicode char U+00AE (decimal 174)
-   defining Unicode char U+00BA (decimal 186)
-   defining Unicode char U+02C6 (decimal 710)
-   defining Unicode char U+02DC (decimal 732)
-   defining Unicode char U+200C (decimal 8204)
-   defining Unicode char U+2026 (decimal 8230)
-   defining Unicode char U+2122 (decimal 8482)
-   defining Unicode char U+2423 (decimal 9251)
-   defining Unicode char U+FEFF (decimal 65279)
-))
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count275
 \lst@gtempboxa=\box49
@@ -712,8 +301,245 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-9.
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/psnfss/courier.sty
+Package: courier 2020/03/25 PSNFSS-v9.3 (WaS) 
+)
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count283
+\float@exts=\toks24
+\float@box=\box51
+\@float@everytoks=\toks25
+\@floatcapt=\box52
+)
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2020/12/31 v3.16 programmable bibliographies (PK/MW)
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count284
+)
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count285
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@tabx@nest=\count286
+\c@listtotal=\count287
+\c@listcount=\count288
+\c@liststart=\count289
+\c@liststop=\count290
+\c@citecount=\count291
+\c@citetotal=\count292
+\c@multicitecount=\count293
+\c@multicitetotal=\count294
+\c@instcount=\count295
+\c@maxnames=\count296
+\c@minnames=\count297
+\c@maxitems=\count298
+\c@minitems=\count299
+\c@citecounter=\count300
+\c@maxcitecounter=\count301
+\c@savedcitecounter=\count302
+\c@uniquelist=\count303
+\c@uniquename=\count304
+\c@refsection=\count305
+\c@refsegment=\count306
+\c@maxextratitle=\count307
+\c@maxextratitleyear=\count308
+\c@maxextraname=\count309
+\c@maxextradate=\count310
+\c@maxextraalpha=\count311
+\c@abbrvpenalty=\count312
+\c@highnamepenalty=\count313
+\c@lownamepenalty=\count314
+\c@maxparens=\count315
+\c@parenlevel=\count316
+\blx@tempcnta=\count317
+\blx@tempcntb=\count318
+\blx@tempcntc=\count319
+\blx@maxsection=\count320
+\blx@maxsegment@0=\count321
+\blx@notetype=\count322
+\blx@parenlevel@text=\count323
+\blx@parenlevel@foot=\count324
+\blx@sectionciteorder@0=\count325
+\blx@entrysetcounter=\count326
+\blx@biblioinstance=\count327
+\labelnumberwidth=\skip53
+\labelalphawidth=\skip54
+\biblabelsep=\skip55
+\bibitemsep=\skip56
+\bibnamesep=\skip57
+\bibinitsep=\skip58
+\bibparsep=\skip59
+\bibhang=\skip60
+\blx@bcfin=\read2
+\blx@bcfout=\write3
+\blx@langwohyphens=\language23
+\c@mincomprange=\count328
+\c@maxcomprange=\count329
+\c@mincompwidth=\count330
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2020/12/31 v3.16 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count331
+\c@savedafterword=\count332
+\c@annotator=\count333
+\c@savedannotator=\count334
+\c@author=\count335
+\c@savedauthor=\count336
+\c@bookauthor=\count337
+\c@savedbookauthor=\count338
+\c@commentator=\count339
+\c@savedcommentator=\count340
+\c@editor=\count341
+\c@savededitor=\count342
+\c@editora=\count343
+\c@savededitora=\count344
+\c@editorb=\count345
+\c@savededitorb=\count346
+\c@editorc=\count347
+\c@savededitorc=\count348
+\c@foreword=\count349
+\c@savedforeword=\count350
+\c@holder=\count351
+\c@savedholder=\count352
+\c@introduction=\count353
+\c@savedintroduction=\count354
+\c@namea=\count355
+\c@savednamea=\count356
+\c@nameb=\count357
+\c@savednameb=\count358
+\c@namec=\count359
+\c@savednamec=\count360
+\c@translator=\count361
+\c@savedtranslator=\count362
+\c@shortauthor=\count363
+\c@savedshortauthor=\count364
+\c@shorteditor=\count365
+\c@savedshorteditor=\count366
+\c@labelname=\count367
+\c@savedlabelname=\count368
+\c@institution=\count369
+\c@savedinstitution=\count370
+\c@lista=\count371
+\c@savedlista=\count372
+\c@listb=\count373
+\c@savedlistb=\count374
+\c@listc=\count375
+\c@savedlistc=\count376
+\c@listd=\count377
+\c@savedlistd=\count378
+\c@liste=\count379
+\c@savedliste=\count380
+\c@listf=\count381
+\c@savedlistf=\count382
+\c@location=\count383
+\c@savedlocation=\count384
+\c@organization=\count385
+\c@savedorganization=\count386
+\c@origlocation=\count387
+\c@savedoriglocation=\count388
+\c@origpublisher=\count389
+\c@savedorigpublisher=\count390
+\c@publisher=\count391
+\c@savedpublisher=\count392
+\c@language=\count393
+\c@savedlanguage=\count394
+\c@origlanguage=\count395
+\c@savedoriglanguage=\count396
+\c@pageref=\count397
+\c@savedpageref=\count398
+\shorthandwidth=\skip61
+\shortjournalwidth=\skip62
+\shortserieswidth=\skip63
+\shorttitlewidth=\skip64
+\shortauthorwidth=\skip65
+\shorteditorwidth=\skip66
+\locallabelnumberwidth=\skip67
+\locallabelalphawidth=\skip68
+\localshorthandwidth=\skip69
+\localshortjournalwidth=\skip70
+\localshortserieswidth=\skip71
+\localshorttitlewidth=\skip72
+\localshortauthorwidth=\skip73
+\localshorteditorwidth=\skip74
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2020/12/31 v3.16 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2020/12/31 v3.16 biblatex compatibility (PK/MW)
+\c@textcitecount=\count399
+\c@textcitetotal=\count400
+\c@textcitemaxnames=\count401
+\c@biburlbigbreakpenalty=\count402
+\c@biburlbreakpenalty=\count403
+\c@biburlnumpenalty=\count404
+\c@biburlucpenalty=\count405
+\c@biburllcpenalty=\count406
+\biburlbigskip=\muskip18
+\biburlnumskip=\muskip19
+\biburlucskip=\muskip20
+\biburllcskip=\muskip21
+\c@smartand=\count407
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count408
+\c@bbx:relatedtotal=\count409
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2020/12/31 v3.16 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
+\@quotelevel=\count410
+\@quotereset=\count411
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3
+4.
 
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -721,43 +547,43 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.d
 ef
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count283
-\l__pdf_internal_box=\box51
+\l__color_backend_stack_int=\count412
+\l__pdf_internal_box=\box53
 ) (out/dreamsound.aux)
 \openout1 = `dreamsound.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
 
 (/usr/local/texlive/2021basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count284
+\scratchcounter=\count413
 \scratchdimen=\dimen165
-\scratchbox=\box52
-\nofMPsegments=\count285
-\nofMParguments=\count286
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count287
+\scratchbox=\box54
+\nofMPsegments=\count414
+\nofMParguments=\count415
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count416
 \MPscratchDim=\dimen166
-\MPnumerator=\count288
-\makeMPintoPDFobject=\count289
-\everyMPtoPDFconversion=\toks25
+\MPnumerator=\count417
+\makeMPintoPDFobject=\count418
+\everyMPtoPDFconversion=\toks27
 )
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.s
 ty
@@ -769,7 +595,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 29.
+Package hyperref Info: Link coloring OFF on input line 34.
  (/usr/local/texlive/2021basic/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -780,963 +606,361 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ing.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count290
+\c@section@level=\count419
 )
-LaTeX Info: Redefining \ref on input line 29.
-LaTeX Info: Redefining \pageref on input line 29.
-LaTeX Info: Redefining \nameref on input line 29.
+LaTeX Info: Redefining \ref on input line 34.
+LaTeX Info: Redefining \pageref on input line 34.
+LaTeX Info: Redefining \nameref on input line 34.
  (out/dreamsound.out) (out/dreamsound.out)
-\@outlinefile=\write3
-\openout3 = `dreamsound.out'.
+\@outlinefile=\write4
+\openout4 = `dreamsound.out'.
 
-\c@lstlisting=\count291
+\c@lstlisting=\count420
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2020/12/31 v3.16 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+Package biblatex Info: Document encoding is UTF8 ....
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2021-02-18 L3 programming layer (loader) 
+)
+Package biblatex Info: ... and expl3
+(biblatex)             2021-02-18 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/l3packages/xparse/xparse-202
+0-10-01.sty
+(/usr/local/texlive/2021basic/texmf-dist/tex/latex/l3packages/xparse/xparse-gen
+eric.tex)))
+Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
+)
+\openout3 = `dreamsound.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'dreamsound.bbl' not found.
+
+No file dreamsound.bbl.
+Package biblatex Info: Reference section=0 on input line 34.
+Package biblatex Info: Reference segment=0 on input line 34.
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 3
-2.
-
+7.
 (/usr/local/texlive/2021basic/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-./dreamsound.tex:32: Font OT1/pcr/m/n/12=pcrr7t at 12.0pt not loadable: Metric 
-(TFM) file not found.
-<to be read again> 
-                   relax 
-l.32 
-     
-I wasn't able to read the size data for this font,
-so I will ignore the font specification.
-[Wizards can fix TFM files using TFtoPL/PLtoTF.]
-You might try inserting a different font spec;
-e.g., type `I\font<same font id>=<substitute font name>'.
-
-Missing character: There is no c in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no c in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no 1 in font nullfont!
-Missing character: There is no @ in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no d in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no d in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no d in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no @ in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no x in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no c in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no k in font nullfont!
-
-Overfull \hbox (12.00002pt too wide) in paragraph at lines 32--32
+Overfull \hbox (12.00002pt too wide) in paragraph at lines 37--37
  [][] 
  []
 
-<license-by-nc.pdf, id=60, 97.01155pt x 33.942pt>
+<license-by-nc.pdf, id=52, 97.01155pt x 33.942pt>
 File: license-by-nc.pdf Graphic file (type pdf)
 <use license-by-nc.pdf>
-Package pdftex.def Info: license-by-nc.pdf  used on input line 32.
+Package pdftex.def Info: license-by-nc.pdf  used on input line 37.
 (pdftex.def)             Requested size: 32.52756pt x 11.38092pt.
-Missing character: There is no √ in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
 
-LaTeX Warning: Citation `2019Purwins' on page 1 undefined on input line 41.
+./dreamsound.tex:37: LaTeX Error: Command \DH unavailable in encoding OT1.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37 
+     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 
-LaTeX Warning: Citation `Briot2017' on page 1 undefined on input line 41.
+LaTeX Warning: Citation '2019Purwins' on page 1 undefined on input line 49.
 
 
-LaTeX Warning: Citation `herremans2017proceedings' on page 1 undefined on input
- line 41.
+LaTeX Warning: Citation 'Briot2017' on page 1 undefined on input line 49.
 
 
-LaTeX Warning: Citation `choi2017tutorial' on page 1 undefined on input line 41
+LaTeX Warning: Citation 'herremans2017proceedings' on page 1 undefined on input
+ line 49.
+
+
+LaTeX Warning: Citation 'choi2017tutorial' on page 1 undefined on input line 49
 .
 
 
-LaTeX Warning: Citation `Bayle2017' on page 1 undefined on input line 41.
+LaTeX Warning: Citation 'Bayle2017' on page 1 undefined on input line 49.
 
 
-LaTeX Warning: Citation `Koray2018' on page 1 undefined on input line 41.
+LaTeX Warning: Citation 'Koray2018' on page 1 undefined on input line 49.
 
 
-LaTeX Warning: Citation `yang2017midinet' on page 1 undefined on input line 41.
-
-
-
-LaTeX Warning: Citation `Briot2018AnET' on page 1 undefined on input line 41.
-
-
-LaTeX Warning: Citation `rachel_manzelli_2018_1492375' on page 1 undefined on i
-nput line 41.
-
-
-LaTeX Warning: Citation `hao_wen_dong_2018_1492377' on page 1 undefined on inpu
-t line 41.
-
-
-LaTeX Warning: Citation `mittal2021symbolic' on page 1 undefined on input line 
-41.
-
-
-LaTeX Warning: Citation `MuseGanPapers' on page 1 undefined on input line 41.
-
-
-LaTeX Warning: Citation `2015piczak' on page 1 undefined on input line 41.
-
-
-LaTeX Warning: Citation `2017audioset' on page 1 undefined on input line 41.
-
-
-LaTeX Warning: Citation `engel2017neural' on page 1 undefined on input line 41.
+LaTeX Warning: Citation 'yang2017midinet' on page 1 undefined on input line 49.
 
 
 
-LaTeX Warning: Citation `sergio_oramas_2017_1417427' on page 1 undefined on inp
-ut line 41.
+LaTeX Warning: Citation 'Briot2018AnET' on page 1 undefined on input line 49.
 
 
-LaTeX Warning: Citation `harsh_verma_2019_3527866' on page 1 undefined on input
- line 41.
+LaTeX Warning: Citation 'rachel_manzelli_2018_1492375' on page 1 undefined on i
+nput line 49.
 
 
-LaTeX Warning: Citation `Winters2019' on page 1 undefined on input line 43.
+LaTeX Warning: Citation 'hao_wen_dong_2018_1492377' on page 1 undefined on inpu
+t line 49.
 
 
-LaTeX Warning: Citation `oord2016wavenet' on page 1 undefined on input line 43.
+LaTeX Warning: Citation 'mittal2021symbolic' on page 1 undefined on input line 
+49.
+
+
+LaTeX Warning: Citation 'MuseGanPapers' on page 1 undefined on input line 49.
+
+
+Underfull \hbox (badness 3039) in paragraph at lines 49--49
+\OT1/ptm/m/n/8 [[], [], [],
+ []
+
+
+LaTeX Warning: Citation '2015piczak' on page 1 undefined on input line 49.
+
+
+LaTeX Warning: Citation '2017audioset' on page 1 undefined on input line 49.
+
+
+LaTeX Warning: Citation 'engel2017neural' on page 1 undefined on input line 49.
 
 
 
-LaTeX Warning: Citation `mehri2017samplernn' on page 1 undefined on input line 
-43.
+LaTeX Warning: Citation 'sergio_oramas_2017_1417427' on page 1 undefined on inp
+ut line 49.
 
 
-LaTeX Warning: Citation `kalchbrenner2018efficient' on page 1 undefined on inpu
-t line 43.
+LaTeX Warning: Citation 'harsh_verma_2019_3527866' on page 1 undefined on input
+ line 49.
 
 
-LaTeX Warning: Citation `oord2017parallel' on page 1 undefined on input line 43
+Underfull \hbox (badness 6825) in paragraph at lines 49--49
+\OT1/ptm/m/n/8 it can be ar-gued that not all MIR prob-lems ben-e-fit from it
+ []
+
+
+LaTeX Warning: Citation 'Winters2019' on page 1 undefined on input line 51.
+
+
+LaTeX Warning: Citation 'pmlr-v123-herrmann20a' on page 1 undefined on input li
+ne 51.
+
+
+LaTeX Warning: Citation 'oord2016wavenet' on page 1 undefined on input line 51.
+
+
+
+LaTeX Warning: Citation 'mehri2017samplernn' on page 1 undefined on input line 
+51.
+
+
+LaTeX Warning: Citation 'kalchbrenner2018efficient' on page 1 undefined on inpu
+t line 51.
+
+
+LaTeX Warning: Citation 'oord2017parallel' on page 1 undefined on input line 51
 .
 
 
-LaTeX Warning: Citation `lamtharn_hantrakul_2019_3527860' on page 1 undefined o
-n input line 43.
+LaTeX Warning: Citation 'lamtharn_hantrakul_2019_3527860' on page 1 undefined o
+n input line 51.
 
 
-LaTeX Warning: Citation `yamamoto2020parallel' on page 1 undefined on input lin
-e 43.
+LaTeX Warning: Citation 'yamamoto2020parallel' on page 1 undefined on input lin
+e 51.
 
 
-LaTeX Warning: Citation `song2021improved' on page 1 undefined on input line 43
+LaTeX Warning: Citation 'song2021improved' on page 1 undefined on input line 51
 .
 
 
-LaTeX Warning: Citation `Bollepalli_2017' on page 1 undefined on input line 43.
+LaTeX Warning: Citation 'Bollepalli_2017' on page 1 undefined on input line 51.
 
 
 
-LaTeX Warning: Citation `2017Kaneko' on page 1 undefined on input line 43.
+LaTeX Warning: Citation '2017Kaneko' on page 1 undefined on input line 51.
 
 
-LaTeX Warning: Citation `pascual2017segan' on page 1 undefined on input line 43
+LaTeX Warning: Citation 'pascual2017segan' on page 1 undefined on input line 51
 .
 
 
-LaTeX Warning: Citation `donahue2018adversarial' on page 1 undefined on input l
-ine 43.
+LaTeX Warning: Citation 'donahue2018adversarial' on page 1 undefined on input l
+ine 51.
 
 
-LaTeX Warning: Citation `2019waveglow' on page 1 undefined on input line 43.
+LaTeX Warning: Citation '2019waveglow' on page 1 undefined on input line 51.
 
 
-LaTeX Warning: Citation `tian2020tfgan' on page 1 undefined on input line 43.
+LaTeX Warning: Citation 'tian2020tfgan' on page 1 undefined on input line 51.
 
 
-LaTeX Warning: Citation `Liu_2020' on page 1 undefined on input line 43.
+LaTeX Warning: Citation 'Liu_2020' on page 1 undefined on input line 51.
 
 
-LaTeX Warning: Citation `2018Lee' on page 1 undefined on input line 43.
+LaTeX Warning: Citation '2018Lee' on page 1 undefined on input line 51.
 
 
-LaTeX Warning: Citation `NEURIPS2019_6804c9bc' on page 1 undefined on input lin
-e 43.
+LaTeX Warning: Citation 'NEURIPS2019_6804c9bc' on page 1 undefined on input lin
+e 51.
 
 
-LaTeX Warning: Citation `jang2021universal' on page 1 undefined on input line 4
-3.
-
-
-LaTeX Warning: Citation `Chandna_2019' on page 1 undefined on input line 43.
-
-
-LaTeX Warning: Citation `tian2020tfgan' on page 1 undefined on input line 43.
-
-
-LaTeX Warning: Citation `javier_nistal_2020_4245504' on page 1 undefined on inp
-ut line 43.
-
-
-LaTeX Warning: Citation `mustafa2021stylemelgan' on page 1 undefined on input l
-ine 43.
-
-./dreamsound.tex:43: Font OT1/pcr/m/n/8=pcrr7t at 8.0pt not loadable: Metric (T
-FM) file not found.
-<to be read again> 
-                   relax 
-l.43 ... tailor an artistically relevant context.}
-                                                  
-I wasn't able to read the size data for this font,
-so I will ignore the font specification.
-[Wizards can fix TFM files using TFtoPL/PLtoTF.]
-You might try inserting a different font spec;
-e.g., type `I\font<same font id>=<substitute font name>'.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character p).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character s).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character :).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character g).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character i).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character u).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character b).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character .).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character c).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character o).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character m).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character f).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character d).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character c).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character k).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character w).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character g).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character a).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:43: \textfont 0 is undefined (character n).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.43 ... tailor an artistically relevant context.}
-                                                  
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-
-LaTeX Warning: Citation `oord2016wavenet' on page 1 undefined on input line 45.
-
-
-
-LaTeX Warning: Citation `mehri2017samplernn' on page 1 undefined on input line 
-45.
-
-
-LaTeX Warning: Citation `engel2017neural' on page 1 undefined on input line 45.
-
-
-
-LaTeX Warning: Citation `mccarthy2020hooligan' on page 1 undefined on input lin
-e 45.
-
-
-LaTeX Warning: Citation `engel2019gansynth' on page 1 undefined on input line 4
-5.
-
-
-LaTeX Warning: Citation `engel2017neural' on page 1 undefined on input line 45.
-
-
-
-LaTeX Warning: Citation `madhu2021envgan' on page 1 undefined on input line 45.
-
-
-
-LaTeX Warning: Citation `2015piczak' on page 1 undefined on input line 45.
-
-
-LaTeX Warning: Citation `adam_roberts_2019_4285266' on page 1 undefined on inpu
-t line 45.
-
-
-LaTeX Warning: Citation `ILSVRC15' on page 1 undefined on input line 47.
-
-
-LaTeX Warning: Citation `radford2015unsupervised' on page 1 undefined on input 
-line 47.
-
-
-LaTeX Warning: Citation `RothmanBlog' on page 1 undefined on input line 47.
-
-
-LaTeX Warning: Citation `2019Purwins' on page 1 undefined on input line 47.
-
-
-LaTeX Warning: Citation `Briot2017' on page 1 undefined on input line 47.
-
-
-LaTeX Warning: Citation `Mordvintsev2015' on page 1 undefined on input line 47.
-
-
-
-LaTeX Warning: Citation `szegedy2014going' on page 1 undefined on input line 47
-.
-
-
-LaTeX Warning: Citation `Mordvintsev2015' on page 1 undefined on input line 49.
-
-
-./dreamsound.tex:49: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character p).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character s).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character :).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character g).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character i).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character u).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character b).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character .).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character c).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character o).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character m).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character f).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character d).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character c).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character d).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character r).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character e).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character a).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character m).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character s).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character o).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character u).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character n).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:49: \textfont 0 is undefined (character d).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.49 ...{\url{https://github.com/fdch/dreamsound}}
-                                                   DreamSound advances work ...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-
-LaTeX Warning: Citation `YamNet2020' on page 1 undefined on input line 49.
-
-
-LaTeX Warning: Citation `Mordvintsev2015' on page 1 undefined on input line 61.
-
-
-
-LaTeX Warning: Citation `DeepDreamTutorial' on page 1 undefined on input line 6
+LaTeX Warning: Citation 'jang2021universal' on page 1 undefined on input line 5
 1.
 
 
-LaTeX Warning: Citation `szegedy2014going' on page 1 undefined on input line 61
+LaTeX Warning: Citation 'Chandna_2019' on page 1 undefined on input line 51.
+
+
+LaTeX Warning: Citation 'tian2020tfgan' on page 1 undefined on input line 51.
+
+
+LaTeX Warning: Citation 'javier_nistal_2020_4245504' on page 1 undefined on inp
+ut line 51.
+
+
+LaTeX Warning: Citation 'mustafa2021stylemelgan' on page 1 undefined on input l
+ine 51.
+
+
+Underfull \hbox (badness 2644) in paragraph at lines 51--51
+[][][]\OT1/ptm/m/n/8 Multiple vari-ants to the orig-i-nal Wave-GAN have ap-pear
+ed in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
+\OT1/ptm/m/n/8 GAN [[], []], WGANS-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
+\OT1/ptm/m/n/8 ing [[]], TF-GAN [[]], DRUM-GAN
+ []
+
+
+Underfull \hbox (badness 1688) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 fi-ca-tion [[], []], and more
+ []
+
+
+Underfull \hbox (badness 3199) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 first with the deep con-vo-lu-tional neu-ral net-work WaveNet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 (RNN) [[], []].
+ []
+
+
+Underfull \hbox (badness 4366) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 Their heavy com-pu-ta-tional re-quire-ments were a dis-ad-van-
+ []
+
+
+Underfull \hbox (badness 1515) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 tage for both train-ing and per-for-mance. Fur-ther op-ti-miza-
+ []
+
+
+Underfull \hbox (badness 1270) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 tions with par-al-lel com-pu-ta-tions emerged [[],
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+[]\OT1/ptm/m/n/9 , [],
+ []
+
+
+Underfull \hbox (badness 3849) in paragraph at lines 51--52
+[]\OT1/ptm/m/n/9 ], but it was not un-til Gen-er-a-tive Ad-
+ []
+
+
+Underfull \hbox (badness 2662) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 ver-sar-ial Net-works (GANs) that mu-sic ben-e-fited from raw
+ []
+
+
+Underfull \hbox (badness 3623) in paragraph at lines 51--52
+\OT1/ptm/m/n/9 au-dio syn-the-sized with DL [[], [],
+ []
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 51--52
+[]\OT1/ptm/m/n/9 , [], [],
+ []
+
+
+LaTeX Warning: Citation 'engel2017neural' on page 1 undefined on input line 53.
+
+
+
+LaTeX Warning: Citation 'mccarthy2020hooligan' on page 1 undefined on input lin
+e 53.
+
+
+LaTeX Warning: Citation 'engel2019gansynth' on page 1 undefined on input line 5
+3.
+
+
+LaTeX Warning: Citation 'engel2017neural' on page 1 undefined on input line 53.
+
+
+
+LaTeX Warning: Citation 'madhu2021envgan' on page 1 undefined on input line 53.
+
+
+
+LaTeX Warning: Citation '2015piczak' on page 1 undefined on input line 53.
+
+
+LaTeX Warning: Citation 'adam_roberts_2019_4285266' on page 1 undefined on inpu
+t line 53.
+
+
+LaTeX Warning: Citation 'ILSVRC15' on page 1 undefined on input line 55.
+
+
+LaTeX Warning: Citation 'radford2015unsupervised' on page 1 undefined on input 
+line 55.
+
+
+LaTeX Warning: Citation 'RothmanBlog' on page 1 undefined on input line 55.
+
+
+LaTeX Warning: Citation '2019Purwins' on page 1 undefined on input line 55.
+
+
+LaTeX Warning: Citation 'Briot2017' on page 1 undefined on input line 55.
+
+
+LaTeX Warning: Citation 'Mordvintsev2015' on page 1 undefined on input line 55.
+
+
+
+LaTeX Warning: Citation 'szegedy2014going' on page 1 undefined on input line 55
 .
 
 
-LaTeX Warning: Citation `ILSVRC15' on page 1 undefined on input line 61.
+LaTeX Warning: Citation 'Mordvintsev2015' on page 1 undefined on input line 57.
 
 
-LaTeX Warning: Citation `Briot2017' on page 1 undefined on input line 61.
+
+LaTeX Warning: Citation 'YamNet2020' on page 1 undefined on input line 57.
 
 [1{/usr/local/texlive/2021basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -1744,730 +968,340 @@ LaTeX Warning: Citation `Briot2017' on page 1 undefined on input line 61.
 
  <./license-by-nc.pdf>]
 
-LaTeX Warning: Citation `Briot2017' on page 2 undefined on input line 63.
-
-
-LaTeX Warning: Citation `Mordvintsev2015' on page 2 undefined on input line 66.
+LaTeX Warning: Citation 'Mordvintsev2015' on page 2 undefined on input line 64.
 
 
 
-LaTeX Warning: Citation `Balke2015' on page 2 undefined on input line 66.
+LaTeX Warning: Citation 'DeepDreamTutorial' on page 2 undefined on input line 6
+4.
 
 
-LaTeX Warning: Citation `Lim1983' on page 2 undefined on input line 66.
-
-
-LaTeX Warning: Citation `Stamenovic2016' on page 2 undefined on input line 66.
-
-
-LaTeX Warning: Citation `pmlr-v123-herrmann20a' on page 2 undefined on input li
-ne 66.
-
-
-LaTeX Warning: Citation `Balke2015' on page 2 undefined on input line 66.
-
-
-LaTeX Warning: Citation `Stamenovic2016' on page 2 undefined on input line 66.
-
-
-LaTeX Warning: Citation `Balke2015' on page 2 undefined on input line 69.
-
-
-LaTeX Warning: Citation `Stamenovic2016' on page 2 undefined on input line 69.
-
-
-LaTeX Warning: Citation `pmlr-v123-herrmann20a' on page 2 undefined on input li
-ne 69.
-
-
-LaTeX Warning: Citation `2019Purwins' on page 2 undefined on input line 69.
-
-
-LaTeX Warning: Citation `Briot2017' on page 2 undefined on input line 69.
-
-
-LaTeX Warning: Citation `simonyan2014deep' on page 2 undefined on input line 73
+LaTeX Warning: Citation 'szegedy2014going' on page 2 undefined on input line 64
 .
 
 
-LaTeX Warning: Citation `mahendran2014understanding' on page 2 undefined on inp
-ut line 73.
+LaTeX Warning: Citation 'ILSVRC15' on page 2 undefined on input line 64.
 
 
-LaTeX Warning: Citation `dosovitskiy2016inverting' on page 2 undefined on input
- line 73.
+LaTeX Warning: Citation 'Briot2017' on page 2 undefined on input line 64.
 
 
-LaTeX Warning: Citation `saumitra_mishra_2018_1492527' on page 2 undefined on i
-nput line 73.
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+\OT1/ptm/m/n/9 Deep Dream is a project de-scribed in a blog post
+ []
 
 
-LaTeX Warning: Citation `Winters2019' on page 2 undefined on input line 73.
+LaTeX Warning: Citation 'Briot2017' on page 2 undefined on input line 66.
 
 
-LaTeX Warning: Citation `YamNet2020' on page 2 undefined on input line 79.
+LaTeX Warning: Citation 'Mordvintsev2015' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `howard2017mobilenets' on page 2 undefined on input lin
-e 79.
+
+LaTeX Warning: Citation 'Balke2015' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `2017audioset' on page 2 undefined on input line 79.
+LaTeX Warning: Citation 'Lim1983' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `DeepDreamTutorial' on page 2 undefined on input line 8
-3.
+LaTeX Warning: Citation 'Stamenovic2016' on page 2 undefined on input line 70.
 
 
-LaTeX Warning: Citation `pmlr-v123-herrmann20a' on page 2 undefined on input li
-ne 83.
+LaTeX Warning: Citation 'pmlr-v123-herrmann20a' on page 2 undefined on input li
+ne 70.
 
 
-LaTeX Warning: File `img/output_type-0.png' not found on input line 87.
+LaTeX Warning: File `img/10-steps-combined-gradients.png' not found on input li
+ne 74.
 
 
-./dreamsound.tex:87: Package pdftex.def Error: File `img/output_type-0.png' not
- found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.87 ...mg/output_type-0.png,width=1\columnwidth}}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-./dreamsound.tex:87: Font OT1/pcr/m/n/9=pcrr7t at 9.0pt not loadable: Metric (T
-FM) file not found.
-<to be read again> 
-                   relax 
-l.87 ...mg/output_type-0.png,width=1\columnwidth}}
-                                                  
-I wasn't able to read the size data for this font,
-so I will ignore the font specification.
-[Wizards can fix TFM files using TFtoPL/PLtoTF.]
-You might try inserting a different font spec;
-e.g., type `I\font<same font id>=<substitute font name>'.
-
-Missing character: There is no i in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no / in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no _ in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no - in font nullfont!
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
-
-LaTeX Warning: File `img/output_type-1.png' not found on input line 91.
-
-
-./dreamsound.tex:91: Package pdftex.def Error: File `img/output_type-1.png' not
- found: using draft setting.
+./dreamsound.tex:74: Package pdftex.def Error: File `img/10-steps-combined-grad
+ients.png' not found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.91 ...mg/output_type-1.png,width=1\columnwidth}}
+l.74 ...mbined-gradients.png,width=1\columnwidth}}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-Missing character: There is no i in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no / in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no _ in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no - in font nullfont!
-Missing character: There is no 1 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
 
-LaTeX Warning: File `img/output_type-2.png' not found on input line 95.
+LaTeX Warning: File `img/imageSpeech-2-49.png' not found on input line 78.
 
 
-./dreamsound.tex:95: Package pdftex.def Error: File `img/output_type-2.png' not
- found: using draft setting.
+./dreamsound.tex:78: Package pdftex.def Error: File `img/imageSpeech-2-49.png' 
+not found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.95 ...mg/output_type-2.png,width=1\columnwidth}}
+l.78 ...imageSpeech-2-49.png,width=1\columnwidth}}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-Missing character: There is no i in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no / in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no _ in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no - in font nullfont!
-Missing character: There is no 2 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
 
-LaTeX Warning: File `img/output_type-3.png' not found on input line 99.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+
+LaTeX Warning: Citation 'Balke2015' on page 3 undefined on input line 86.
 
 
-./dreamsound.tex:99: Package pdftex.def Error: File `img/output_type-3.png' not
- found: using draft setting.
+LaTeX Warning: Citation 'Stamenovic2016' on page 3 undefined on input line 86.
+
+
+LaTeX Warning: Citation 'pmlr-v123-herrmann20a' on page 3 undefined on input li
+ne 86.
+
+
+LaTeX Warning: Citation '2019Purwins' on page 3 undefined on input line 86.
+
+
+LaTeX Warning: Citation 'Briot2017' on page 3 undefined on input line 86.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+LaTeX Warning: Citation 'simonyan2014deep' on page 3 undefined on input line 90
+.
+
+
+LaTeX Warning: Citation 'mahendran2014understanding' on page 3 undefined on inp
+ut line 90.
+
+
+LaTeX Warning: Citation 'dosovitskiy2016inverting' on page 3 undefined on input
+ line 90.
+
+
+LaTeX Warning: Citation 'saumitra_mishra_2018_1492527' on page 3 undefined on i
+nput line 90.
+
+
+LaTeX Warning: Citation 'Winters2019' on page 3 undefined on input line 90.
+
+
+Underfull \hbox (badness 1194) in paragraph at lines 90--91
+\OT1/ptm/m/n/9 and per-cep-tu-al-ize deep net-works [[]], there
+ []
+
+
+Underfull \hbox (badness 2478) in paragraph at lines 90--91
+\OT1/ptm/m/n/9 ex-ist work on their soni-fi-ca-tion like Her-man's work men-
+ []
+
+
+Underfull \hbox (badness 6220) in paragraph at lines 90--91
+\OT1/ptm/m/n/9 a pro-posed so-lu-tion for un-der-stand-ing these ar-chi-tec-tur
+es
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+\OT1/ptm/m/n/9 [[], []],
+ []
+
+
+Underfull \hbox (badness 1308) in paragraph at lines 90--91
+\OT1/ptm/m/n/9 in deep con-vo-lu-tional lay-ers. Win-ters et al [[]]
+ []
+
+
+LaTeX Warning: Citation 'YamNet2020' on page 3 undefined on input line 98.
+
+
+LaTeX Warning: Citation 'howard2017mobilenets' on page 3 undefined on input lin
+e 98.
+
+
+LaTeX Warning: Citation '2017audioset' on page 3 undefined on input line 98.
+
+
+Underfull \vbox (badness 1259) has occurred while \output is active []
+
+ [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.99 
+     ]
+
+LaTeX Warning: Citation 'DeepDreamTutorial' on page 4 undefined on input line 1
+02.
+
+
+LaTeX Warning: Citation 'pmlr-v123-herrmann20a' on page 4 undefined on input li
+ne 102.
+
+
+LaTeX Warning: File `img/output_type-0.png' not found on input line 106.
+
+
+./dreamsound.tex:106: Package pdftex.def Error: File `img/output_type-0.png' no
+t found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.99 ...mg/output_type-3.png,width=1\columnwidth}}
+l.106 ...g/output_type-0.png,width=1\columnwidth}}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-Missing character: There is no i in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no / in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no _ in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no y in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no - in font nullfont!
-Missing character: There is no 3 in font nullfont!
-Missing character: There is no . in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
 
-Overfull \hbox (1.71002pt too wide) in paragraph at lines 86--102
+LaTeX Warning: File `img/output_type-1.png' not found on input line 110.
+
+
+./dreamsound.tex:110: Package pdftex.def Error: File `img/output_type-1.png' no
+t found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.110 ...g/output_type-1.png,width=1\columnwidth}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `img/output_type-2.png' not found on input line 114.
+
+
+./dreamsound.tex:114: Package pdftex.def Error: File `img/output_type-2.png' no
+t found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...g/output_type-2.png,width=1\columnwidth}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `img/output_type-3.png' not found on input line 118.
+
+
+./dreamsound.tex:118: Package pdftex.def Error: File `img/output_type-3.png' no
+t found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.118 ...g/output_type-3.png,width=1\columnwidth}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (1.71002pt too wide) in paragraph at lines 105--121
 []$[]$ $[]$
  []
 
 
-Overfull \hbox (1.71002pt too wide) in paragraph at lines 86--102
-[]$ $[]$ 
+Overfull \hbox (1.71002pt too wide) in paragraph at lines 105--121
+[]$ $[]$
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[2]
-
-LaTeX Warning: Citation `GatysEB15a' on page 3 undefined on input line 116.
-
-
-LaTeX Warning: Citation `Foote2016' on page 3 undefined on input line 116.
-
-
-LaTeX Warning: Citation `Ulyanov2016' on page 3 undefined on input line 116.
-
-
-LaTeX Warning: Citation `Wyse2017' on page 3 undefined on input line 116.
-
-
-LaTeX Warning: Citation `Briot2017' on page 3 undefined on input line 116.
-
-
-LaTeX Warning: Citation `verma2018neural' on page 3 undefined on input line 116
-.
-
-Missing character: There is no p in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no d in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no d in font nullfont!
-./dreamsound.tex:129: \textfont 0 is undefined (character h).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character p).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character s).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character :).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character p).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character y).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character p).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character i).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character .).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character o).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character r).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character g).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character p).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character r).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character o).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character j).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character e).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character c).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character t).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character /).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character d).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character r).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character e).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character a).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character m).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character s).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character o).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character u).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character n).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-./dreamsound.tex:129: \textfont 0 is undefined (character d).
-\Url@FormatString ...\Url@String \UrlRight \m@th $
-                                                  
-l.129 ...url{https://pypi.org/project/dreamsound}}
-                                                  . The details of the imple...
-Somewhere in the math formula just ended, you used the
-stated character from an undefined font family. For example,
-plain TeX doesn't allow \it or \sl in subscripts. Proceed,
-and I'll try to forget that I needed that character.
-
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 133.
+ [4pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.139 # 
+        apply the hard-cut filter]
+
+LaTeX Warning: Citation 'GatysEB15a' on page 5 undefined on input line 156.
 
 
-Package Listings Warning: Text dropped after begin of listing on input line 133
+LaTeX Warning: Citation 'Foote2016' on page 5 undefined on input line 156.
+
+
+LaTeX Warning: Citation 'Ulyanov2016' on page 5 undefined on input line 156.
+
+
+LaTeX Warning: Citation 'Wyse2017' on page 5 undefined on input line 156.
+
+
+LaTeX Warning: Citation 'Briot2017' on page 5 undefined on input line 156.
+
+
+LaTeX Warning: Citation 'verma2018neural' on page 5 undefined on input line 156
 .
 
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-44.
-(/usr/local/texlive/2021basic/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-Overfull \hbox (48.6224pt too wide) in paragraph at lines 146--147
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
+
+./dreamsound.tex:164: Package biblatex Error: '\bibliographystyle' invalid.
+
+See the biblatex package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 \bibliographystyle{IEEEtran}
+                                  
+Use the package option 'style' instead.
+I'm ignoring this command.
 
 
-Overfull \hbox (151.22345pt too wide) in paragraph at lines 150--151
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
+./dreamsound.tex:165: LaTeX Error: Can be used only in preamble.
 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.165 \bibliography
+                   {dreamsound}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
-Overfull \hbox (32.42224pt too wide) in paragraph at lines 151--152
-[][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (108.02301pt too wide) in paragraph at lines 152--153
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (129.62323pt too wide) in paragraph at lines 154--155
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (108.02301pt too wide) in paragraph at lines 156--157
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (10.82202pt too wide) in paragraph at lines 157--158
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (54.02246pt too wide) in paragraph at lines 159--161
-[][][][][][][][][][][][][][][][] 
- []
-
-[3]
-No file dreamsound.bbl.
-[4
-
-] (out/dreamsound.aux)
+[5] (out/dreamsound.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `dreamsound.out' has not changed.
-(rerunfilecheck)             Checksum: E0ED75301B8194AE8CC066B3C30DDDB5;2171.
+(rerunfilecheck)             Checksum: 50563206B5926CE7445D013AB5BCE6EC;1791.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                dreamsound
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'dreamsound.run.xml'.
+\openout1 = `dreamsound.run.xml'.
+
  ) 
 Here is how much of TeX's memory you used:
- 11040 strings out of 480445
- 158585 string characters out of 5892391
- 695416 words of memory out of 5000000
- 28076 multiletter control sequences out of 15000+600000
- 423944 words of font info for 65 fonts, out of 8000000 for 9000
+ 18157 strings out of 480445
+ 300306 string characters out of 5892391
+ 1066843 words of memory out of 5000000
+ 35151 multiletter control sequences out of 15000+600000
+ 424842 words of font info for 69 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 83i,17n,88p,1601b,1513s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 83i,17n,88p,1836b,1926s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021basic/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/lo
 cal/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
 /local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
-sr/local/texlive/2021basic/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/lo
-cal/texlive/2021basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/t
-exlive/2021basic/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on out/dreamsound.pdf (4 pages, 100318 bytes).
+sr/local/texlive/2021basic/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/
+local/texlive/2021basic/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local
+/texlive/2021basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texl
+ive/2021basic/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on out/dreamsound.pdf (5 pages, 118154 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
- 56 named destinations out of 1000 (max. 500000)
- 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 174 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
+ 43 named destinations out of 1000 (max. 500000)
+ 102 words of extra memory for PDF output out of 10000 (max. 10000000)
 
