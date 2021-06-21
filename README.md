@@ -1,6 +1,18 @@
 # DreamSound
 
-DreamSound is a python package for sonic deep dream generation.
+DreamSound is a python package for sonic deep dream generation. See our [paper](docs/DreamSound_paper.pdf), a working [colab](docs/DreamSound_Package_Example_v_0_1_6_3.ipynb), and a web version with examples at [https://fdch.github.io/dreamsound](https://fdch.github.io/dreamsound) 
+
+Please cite us:
+
+```bibfile
+@inproceedings{DreamSound2021,
+      title={DreamSound: Deep Activation Layer Sonification}, 
+      author={Cámara Halac, Federico and Delgadino, Matías},
+      year={2021},
+      booktitle={Presented at the 27th International Conference on Auditory Display (ICAD 2021)},
+      publisher={International Community on Auditory Display    },
+}
+```
 
 ## Description
 
