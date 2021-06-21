@@ -6,3 +6,4 @@ tests/*
 !tests/dreamsound_test.py
 .tox/*
 docs/research/
+docs/paper/zip/
