@@ -1,0 +1,82 @@
+--------------------------------------------------------------------------------
+Iteration 0
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 1
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 2
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 3
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 4
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 5
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 6
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 7
+audio_index=0, output_type=0, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 8
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 9
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 10
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 11
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 12
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 13
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 14
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 15
+audio_index=0, output_type=1, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 16
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 17
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 18
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 19
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 20
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 21
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 22
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 23
+audio_index=0, output_type=2, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 24
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 25
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 26
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 27
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 28
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 29
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 30
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 31
+audio_index=0, output_type=3, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 32
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 33
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 34
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 35
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=False, argmax=True, target=2
+--------------------------------------------------------------------------------Iteration 36
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=1
+--------------------------------------------------------------------------------Iteration 37
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=False, target=2
+--------------------------------------------------------------------------------Iteration 38
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=1
+--------------------------------------------------------------------------------Iteration 39
+audio_index=0, output_type=4, step_size=0.2, threshold=0.5, win_length=2048, fft_length=4096, hop_length=128, flip=True, argmax=True, target=2
+--------------------------------------------------------------------------------
